@@ -86,7 +86,7 @@ export class Camera{
 
     this.camera = new ROSLIB.Topic({
       ros: this.ros,
-      name: "/camera/effected",
+      name: "/camera/processed",
       messageType: "sensor_msgs/CompressedImage ",
     });
   }
