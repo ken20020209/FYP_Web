@@ -14,7 +14,7 @@
 
   cam.value="/favicon.ico";
   camera.subCamCapture(0,(msg)=>{
-    console.log(msg);
+    // console.log(msg);
     cam.value = 'data:image/jpeg;base64,' + msg.data;
   });
   
