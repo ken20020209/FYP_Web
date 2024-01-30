@@ -1,5 +1,7 @@
 import ROSLIB from "roslib";
 
+
+
 export class Movement {
   constructor(ros) {
     this.ros = ros;
@@ -110,25 +112,26 @@ export class Camera {
 
 export class Action {
   actionList = {
-    Lie_Down: 1,
-    Stand_Up: 2,
-    Crawl: 3,
-    Turn_Around: 4,
-    Mark_Time: 5,
-    Squat: 6,
-    Turn_Roll: 7,
-    Turn_Pitch: 8,
-    Turn_Yaw: 9,
-    pee: 10,
-    Sit_Down: 11,
-    Wave_Hand: 12,
-    Stretch: 13,
-    Wave_Body: 14,
-    Swing: 15,
-    Pray: 16,
-    Seek: 17,
-    Handshake: 18,
-    Rotation: 19,
+    Lie_Down: ()=>this.#doAction(1),
+    Stand_Up: ()=>this.#doAction(2),
+    Crawl: ()=>this.#doAction(3),
+    Turn_Around: ()=>this.#doAction(4),
+    Mark_Time: ()=>this.#doAction(5),
+    Squat: ()=>this.#doAction(6),
+    Turn_Roll: ()=>this.#doAction(7),
+    Turn_Pitch: ()=>this.#doAction(8),
+    Turn_Yaw: ()=>this.#doAction(9),
+    pee: ()=>this.#doAction(10),
+    Sit_Down: ()=>this.#doAction(11),
+    Wave_Hand: ()=>this.#doAction(12),
+    Stretch: ()=>this.#doAction(13),
+    Wave_Body: ()=>this.#doAction(14),
+    Swing: ()=>this.#doAction(15),
+    Pray: ()=>this.#doAction(16),
+    Seek: ()=>this.#doAction(17),
+    Handshake: ()=>this.#doAction(18),
+    Rotation: ()=>this.#doAction(19),
+    Reset: ()=>this.#doAction(255),
   };
   constructor(ros) {
     this.ros = ros;
@@ -149,14 +152,11 @@ export class Action {
     });
   }
   //string action ref action list
-  doAction(action) {
-    if(!action in this.actionList)
-    {
-      throw new Error("action not found");
-    }
-    var actionVal = new ROSLIB.Message({
-      data: this.actionList[action],
+  #doAction(action) {
+    var actionMsg = new ROSLIB.Message({
+      data: action,
     });
-    this.actionTopic.publish(actionVal);
+    // console.log(actionMsg);
+    this.actionTopic.publish(actionMsg);
   }
 }
