@@ -71,8 +71,8 @@ export class Movement {
   }
 }
 
-export class Camera{
-  constructor(ros){
+export class Camera {
+  constructor(ros) {
     this.ros = ros;
     this.ros.on("connection", () => {
       console.log("Connected to websocket server.");
@@ -90,21 +90,73 @@ export class Camera{
       messageType: "sensor_msgs/msg/CompressedImage",
     });
   }
-  
-  getCameraNum(){
+
+  getCameraNum() {
     return 1;
   }
-  subCamCapture(index, callback){
-    if(index != 0){
+  subCamCapture(index, callback) {
+    if (index != 0) {
       throw new Error("out of camera range");
     }
     this.camera.subscribe(callback);
-
   }
-  unSubCamCapture(index){
+  unSubCamCapture(index) {
     this.camera.unsubscribe();
   }
-  changeEffect(index, affection){
+  changeEffect(index, affection) {
     throw new Error("Not implemented");
+  }
+}
+
+export class Action {
+  actionList = {
+    Lie_Down: 1,
+    Stand_Up: 2,
+    Crawl: 3,
+    Turn_Around: 4,
+    Mark_Time: 5,
+    Squat: 6,
+    Turn_Roll: 7,
+    Turn_Pitch: 8,
+    Turn_Yaw: 9,
+    pee: 10,
+    Sit_Down: 11,
+    Wave_Hand: 12,
+    Stretch: 13,
+    Wave_Body: 14,
+    Swing: 15,
+    Pray: 16,
+    Seek: 17,
+    Handshake: 18,
+    Rotation: 19,
+  };
+  constructor(ros) {
+    this.ros = ros;
+    this.ros.on("connection", () => {
+      console.log("Connected to websocket server.");
+    });
+    this.ros.on("error", (error) => {
+      console.log("Error connecting to websocket server: ", error);
+    });
+    this.ros.on("close", () => {
+      console.log("Connection to websocket server closed.");
+    });
+
+    this.actionTopic = new ROSLIB.Topic({
+      ros: this.ros,
+      name: "/action",
+      messageType: "std_msgs/Int32",
+    });
+  }
+  //string action ref action list
+  doAction(action) {
+    if(!action in this.actionList)
+    {
+      throw new Error("action not found");
+    }
+    var actionVal = new ROSLIB.Message({
+      data: this.actionList[action],
+    });
+    this.actionTopic.publish(actionVal);
   }
 }
