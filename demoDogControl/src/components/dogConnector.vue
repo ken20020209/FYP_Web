@@ -14,8 +14,14 @@
   const dogList=ref(dogConnector.dogList);
 
   const getDogList = () => {
-    dogConnector.getDogList();
-    dogList.value = dogConnector.dogList;
+    dogConnector.getDogList(
+        (result)=>
+        {
+            console.log(result);
+            dogList.value=result;
+        }
+    );
+
   };
   
   </script>

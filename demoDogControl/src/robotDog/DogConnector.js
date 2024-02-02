@@ -11,12 +11,9 @@ export class DogConnector {
             serviceType: 'service/srv/GetDogList'
         });
     }
-    getDogList() {
+    getDogList(callback) {
         const request = new ROSLIB.ServiceRequest({});
-        this.getDogListClient.callService(request, (result) => {
-            console.log(result);
-            this.dogList = result;
-        });
+        this.getDogListClient.callService(request, callback);
 
     }
 }
