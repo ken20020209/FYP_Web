@@ -7,7 +7,7 @@ import dogConnector from './components/dogConnector.vue';
 import ROSLIB from "roslib";
 
 
-
+//main ros connection that connects connector server
 const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
 ros.on("connection", () => {
     console.log("Connected to websocket server.");
@@ -24,9 +24,12 @@ ros.on("connection", () => {
 
 <template>
   <main>
+    <!-- for direct connect controller server -->
     <movement :ros=ros></movement>
     <camera :ros=ros></camera>
     <action :ros=ros></action>
+
+    <!-- for direct connect connector server -->
     <dogConnector :ros=ros></dogConnector>
 
   </main>
