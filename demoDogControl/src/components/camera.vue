@@ -8,8 +8,9 @@
   import { Camera } from "../robotDog/DogController.js";
   import {ref} from 'vue';
   
-  const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
-  const camera = new Camera(ros);
+  // const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
+  const ros= defineProps(['ros']);
+  const camera = new Camera(ros.ros);
   const cam=ref(null);
 
   cam.value="/favicon.ico";

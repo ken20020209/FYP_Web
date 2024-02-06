@@ -9,8 +9,10 @@
   import { DogConnector } from "../robotDog/DogConnector.js";
   import { ref } from "vue";
   
-  const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
-  const dogConnector = new DogConnector(ros);
+  
+  // const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
+  const ros= defineProps(['ros']);
+  const dogConnector = new DogConnector(ros.ros);
   const dogList=ref(dogConnector.dogList);
 
   const getDogList = () => {

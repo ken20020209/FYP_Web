@@ -5,15 +5,6 @@ import ROSLIB from "roslib";
 export class Movement {
   constructor(ros) {
     this.ros = ros;
-    this.ros.on("connection", () => {
-      console.log("Connected to websocket server.");
-    });
-    this.ros.on("error", (error) => {
-      console.log("Error connecting to websocket server: ", error);
-    });
-    this.ros.on("close", () => {
-      console.log("Connection to websocket server closed.");
-    });
 
     this.cmd_vel = new ROSLIB.Topic({
       ros: this.ros,
@@ -76,15 +67,6 @@ export class Movement {
 export class Camera {
   constructor(ros) {
     this.ros = ros;
-    this.ros.on("connection", () => {
-      console.log("Connected to websocket server.");
-    });
-    this.ros.on("error", (error) => {
-      console.log("Error connecting to websocket server: ", error);
-    });
-    this.ros.on("close", () => {
-      console.log("Connection to websocket server closed.");
-    });
 
     this.camera = new ROSLIB.Topic({
       ros: this.ros,
@@ -135,16 +117,7 @@ export class Action {
   };
   constructor(ros) {
     this.ros = ros;
-    this.ros.on("connection", () => {
-      console.log("Connected to websocket server.");
-    });
-    this.ros.on("error", (error) => {
-      console.log("Error connecting to websocket server: ", error);
-    });
-    this.ros.on("close", () => {
-      console.log("Connection to websocket server closed.");
-    });
-
+    
     this.actionTopic = new ROSLIB.Topic({
       ros: this.ros,
       name: "/action",

@@ -7,8 +7,10 @@
   import ROSLIB from "roslib";
   import { Action } from "../robotDog/DogController.js";
   
-  const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
-  const actionController = new Action(ros);
+   
+  // const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
+  const ros= defineProps(['ros']);
+  const actionController = new Action(ros.ros);
   
   </script>
   
