@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ros2d": "^0.10.0",
     "roslib": "^1.4.1",
     "vue": "^3.3.4"
   },
