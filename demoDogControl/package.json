@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ken20020209/ros2d": "^0.11.1",
     "roslib": "^1.4.1",
     "vue": "^3.3.4"
   },

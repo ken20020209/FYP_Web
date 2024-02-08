@@ -5,18 +5,34 @@
 <script setup>
 
 import { ref, onMounted } from 'vue';
-import {ROS2D} from "/node_modules/ros2d/build/ros2d";
+import * as ROS2D from "@ken20020209/ros2d";
 
 const controller= defineProps(['controller']);
 const ros= controller.controller.ros;
 
-const viewer=ROS2D.Viewer({
-  divID: 'map',
-  width: 640,
-  height: 480
-});
 
-// const controller= defineProps(['controller']);
-// const movement = controller.controller.movement;
+const init=()=>{
+  const viewer=new ROS2D.Viewer({
+    divID: 'map2d',
+    width: 640,
+    height: 480
+  });
+  // Setup the map client.
+  var gridClient = new ROS2D.OccupancyGridClient({
+      ros : ros,
+      rootObject : viewer.scene
+    });
+    // Scale the canvas to fit to the map
+  gridClient.on('change', function() {
+    viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+    viewer.shift(gridClient.currentGrid.pose.position.x, gridClient.currentGrid.pose.position.y);
+  });
+  
+}
+
+
+onMounted(() => {
+  init();
+});
 
 </script>
