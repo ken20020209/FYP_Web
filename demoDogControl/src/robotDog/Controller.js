@@ -135,7 +135,7 @@ export class Action {
 }
 
 
-export class DogController {
+export class Controller {
   constructor(ros,name) {
     this.name=name;
     this.ros = ros;

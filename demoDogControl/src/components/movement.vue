@@ -10,12 +10,8 @@
 
 </template>
 <script setup>
-import ROSLIB from "roslib";
-import { Movement } from "../robotDog/DogController.js";
 
-  
-// const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
-const ros= defineProps(['ros']);
-const movement = new Movement(ros.ros);
+const controller= defineProps(['controller']);
+const movement = controller.controller.movement;
 
 </script>

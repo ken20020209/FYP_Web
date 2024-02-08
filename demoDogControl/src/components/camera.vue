@@ -4,13 +4,11 @@
   
   </template>
   <script setup>
-  import ROSLIB from "roslib";
-  import { Camera } from "../robotDog/DogController.js";
+
   import {ref} from 'vue';
-  
-  // const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
-  const ros= defineProps(['ros']);
-  const camera = new Camera(ros.ros);
+
+  const controller= defineProps(['controller']);
+  const camera = controller.controller.camera;
   const cam=ref(null);
 
   cam.value="/favicon.ico";
