@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "roslib": "^1.4.1",
+    "roslib": "github:ken20020209/roslibjs#v2",
     "vue": "^3.3.4"
   },
   "devDependencies": {
