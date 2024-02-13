@@ -6,6 +6,26 @@ import ROSLIB from "roslib";
 // it not  work for navigation
 
 export class DogGroupFrontend {
+
+    
+    dogControllerList = {};
+    constructor(ros) {
+        this.ros = ros;
+    }
+    
+    //todo: the addDog and remove dog may use another parameter (not use dogController)
+    addDog(dogController) {
+        if(dogController.name in this.dogControllerList){
+            throw new Error("Dog name already exist");
+        }
+        this.dogList[dogController.name] = dogController;
+    }
+    removeDog(dogController) {
+        if(dogController.name in this.dogControllerList){
+            delete this.dogControllerList[dogController.name];
+        }
+    }
+
     actionList = {
         Lie_Down: ()=>this.doAction(1),
         Stand_Up: ()=>this.doAction(2),
@@ -28,29 +48,16 @@ export class DogGroupFrontend {
         Handshake: ()=>this.doAction(19),
         Reset: ()=>this.doAction(255),
       };
-    dogControllerList = {};
-    constructor(ros) {
-        this.ros = ros;
-    }
-    
-    //todo: the addDog and remove dog may use another parameter (not use dogController)
-    addDog(dogController) {
-        if(dogController.name in this.dogControllerList){
-            throw new Error("Dog name already exist");
-        }
-        this.dogList[dogController.name] = dogController;
-    }
-    removeDog(dogController) {
-        if(dogController.name in this.dogControllerList){
-            delete this.dogControllerList[dogController.name];
-        }
-    }
+
+    action={'actionList':this.actionList};
     //action control
     doAction(action){
         for (const key in this.dogControllerList) {
             this.dogControllerList[key].movement.doAction(action);
         }
     }
+    
+    movement={'move_forward':this.move_forward,'move_backward':this.move_backward,'move_left':this.move_left,'move_right':this.move_right,'turn_left':this.turn_left,'turn_right':this.turn_right};
     //movement control
     move_forward(speed){
         for (const key in this.dogControllerList) {
@@ -84,5 +91,5 @@ export class DogGroupFrontend {
     }
 
     //camera custom by control camera class
-
+    
 }

@@ -13,7 +13,7 @@ import movement from './movement.vue';
 import camera from './camera.vue';
 import action from './action.vue';
 import map2d from './map2d.vue';
-import { Controller } from '../robotDog/Controller';
+import { Controller } from '../robotDog';
 
 const ros= defineProps(['ros']);
 const controller = new Controller(ros.ros);
