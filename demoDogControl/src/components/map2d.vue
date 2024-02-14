@@ -1,7 +1,7 @@
 <template>
     <h1>Map</h1>
     <div id="map2d"></div>
-    <p>{{ msg}}</p>
+    <!-- <p>{{ msg}}</p> -->
 </template>
 <script setup>
 
