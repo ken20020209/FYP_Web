@@ -41,6 +41,7 @@ const init = () => {
   var gridClient = new ROS2D.OccupancyGridClient({
     ros: ros,
     rootObject: viewer.scene,
+    continuous: true
   });
   // Scale the canvas to fit to the map
   gridClient.on('change', function () {
