@@ -18,7 +18,7 @@ export class DogGroupFrontend {
         if(dogController.name in this.dogControllerList){
             throw new Error("Dog name already exist");
         }
-        this.dogList[dogController.name] = dogController;
+        this.dogControllerList[dogController.name] = dogController;
     }
     removeDog(dogController) {
         if(dogController.name in this.dogControllerList){
@@ -53,11 +53,12 @@ export class DogGroupFrontend {
     //action control
     doAction(action){
         for (const key in this.dogControllerList) {
-            this.dogControllerList[key].movement.doAction(action);
+            this.dogControllerList[key].action.doAction(action);
         }
     }
     
-    movement={'move_forward':this.move_forward,'move_backward':this.move_backward,'move_left':this.move_left,'move_right':this.move_right,'turn_left':this.turn_left,'turn_right':this.turn_right};
+    //todo: it cant call the movement function directly
+    movement={'move_forward':this.move_forward,'move_backward':this.move_backward,'move_left':this.move_left,'move_right':this.move_right,'turn_left':this.turn_left,'turn_right':this.turn_right,'stop':this.stop};
     //movement control
     move_forward(speed){
         for (const key in this.dogControllerList) {
@@ -87,6 +88,11 @@ export class DogGroupFrontend {
     turn_right(speed){
         for (const key in this.dogControllerList) {
             this.dogControllerList[key].movement.turn_right(speed);
+        }
+    }
+    stop(){
+        for (const key in this.dogControllerList) {
+            this.dogControllerList[key].movement.stop();
         }
     }
 
