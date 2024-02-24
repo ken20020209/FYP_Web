@@ -1,6 +1,6 @@
 <template>
   <h1>Map</h1>
-  <div id="map2d"></div>
+  <div v-bind:id="name"></div>
   <!-- <p>{{ msg}}</p> -->
   <p>
     center x:<input type="number" min="0" max="600" step="1" v-model="centerX" />
@@ -20,6 +20,8 @@ import * as ROS2D from "ros2d";
 const controller = defineProps(['controller']);
 const ros = controller.controller.ros;
 const msg = ref('');
+
+const name=ref(controller.controller.name);
 var zoomView;
 const init = () => {
   // const map2d = new ROSLIB.Topic({
@@ -34,7 +36,7 @@ const init = () => {
   //   msg.value = message;
   // });
   var viewer = new ROS2D.Viewer({
-    divID: 'map2d',
+    divID: name.value,
     width: 600,
     height: 500
   });
