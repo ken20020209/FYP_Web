@@ -4,7 +4,7 @@
     <button @click="camera.setEffect(0,effect)">setEffect</button>
     <br>camera:
     <button @click="camera.enableCamera()">on</button>
-    <button @click="camera.enableCamera()">off</button>
+    <button @click="camera.disableCamera()">off</button>
     <br>
     <img :src="cam"/>
 
