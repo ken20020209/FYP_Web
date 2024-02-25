@@ -2,7 +2,7 @@ import ROSLIB from "roslib";
 import { Movement } from "./Movement";
 import { Camera } from "./Camera";
 import { Action } from "./Action";
-import { BasicNavigator } from "./Navigation";
+import { BasicNavigator } from "./NavigationSever";
 
 /**
  * @class Controller

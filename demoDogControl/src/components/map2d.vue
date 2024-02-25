@@ -21,7 +21,7 @@ const controller = defineProps(['controller']);
 const ros = controller.controller.ros;
 const msg = ref('');
 
-const name=ref(controller.controller.name);
+const name=ref("map2d/"+controller.controller.name);
 var zoomView;
 const init = () => {
   // const map2d = new ROSLIB.Topic({
