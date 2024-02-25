@@ -25,7 +25,6 @@ ros.on("connection", () => {
 
 
 </script>
-
 <template>
   <main>
     <!-- click button switch below two mode -->

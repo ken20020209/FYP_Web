@@ -17,7 +17,8 @@ import map2d from './map2d.vue';
 import navigationServer from './navigationServer.vue';
 import { Controller } from '../robotDog';
 
-const ros= defineProps(['ros']);
-const controller = new Controller(ros.ros);
+const props= defineProps(['ros','name']);
+// console.log(props.ros);
+const controller = new Controller(props.ros,props.name);
 
 </script>
