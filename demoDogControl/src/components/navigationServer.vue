@@ -4,6 +4,16 @@
     const navigation = controller.controller.navigation;
 
     const points= ref([[0,0,0],[0,0,0]]);
+    const isTaskCompleted=ref(false);
+    const feedback=ref("");
+    navigation.isTaskComplete((msg)=>{
+        isTaskCompleted.value=msg.data;
+    });
+    navigation.onFeedback((msg)=>{
+        feedback.value=msg.data;
+    });
+
+
 
     const createPose2D=(point)=>{
         let x=point[0];
@@ -46,11 +56,14 @@
     }
 
 
+
     
     
 </script>
 <template>
     <h1>Navigation</h1>
+    <p>isTaskCompleted:{{isTaskCompleted}}</p>
+    <p>feedback:{{feedback}}</p>
     <button @click="moveToPoint">Move to frist point</button>
     <button @click="moveToPoints">Move to points</button>
     <button @click="patrolPoints">Patrol points</button>
