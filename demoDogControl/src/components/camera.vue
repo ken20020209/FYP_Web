@@ -1,15 +1,23 @@
 <template>
     <h1>camera</h1>
+    effect:<input type="number" min="0" max="100" v-model="effect"/>
+    <button @click="camera.setEffect(0,effect)">setEffect</button>
+    <br>camera:
+    <button @click="camera.enableCamera()">on</button>
+    <button @click="camera.enableCamera()">off</button>
+    <br>
     <img :src="cam"/>
+
   
   </template>
   <script setup>
 
   import {ref} from 'vue';
 
-  const controller= defineProps(['controller']);
-  const camera = controller.controller.camera;
+  const props= defineProps(['controller']);
+  const camera = props.controller.camera;
   const cam=ref(null);
+  const effect=ref(0);
 
   cam.value="/favicon.ico";
   camera.subCamCapture(0,(msg)=>{

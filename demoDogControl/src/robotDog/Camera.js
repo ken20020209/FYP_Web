@@ -10,8 +10,19 @@ export class Camera {
       name: "/camera/processed",
       messageType: "sensor_msgs/msg/CompressedImage",
     });
+    this.camera_enable = new ROSLIB.Topic({
+      ros: this.ros,
+      name: "/camera/enable",
+      messageType: "std_msgs/msg/Bool",
+    });
   }
 
+  enableCamera(index=0) {
+    this.camera_enable.publish(new ROSLIB.Message({ data: true }));
+  }
+  disableCamera(index=0) {
+    this.camera_enable.publish(new ROSLIB.Message({ data: false }));
+  }
   getCameraNum() {
     return 1;
   }
