@@ -1,4 +1,5 @@
-import { Pose, ROSLIB,Service , Action, Topic } from "roslib";
+import { Pose,Service , Action, Topic } from "roslib";
+import ROSLIB from "roslib";
 
 //basic nav2 simple commander api
 export class BasicNavigator {
@@ -15,18 +16,18 @@ export class BasicNavigator {
         this.feedback_topic  = new Topic({
             ros: this.ros,
             name: namespace + "/nav2/feedback",
-            messageType: "nav2_msgs/action/FollowWaypoints/Feedback",
+            messageType: "std_msgs/String",
         });
 
         // create the service   
         this.moveToPoint_client = new Service({
             ros: this.ros,
-            name: namespace + "/nav2/move_to_pose",
+            name: namespace + "/nav2/move_to_point",
             serviceType: "message/srv/MoveToPoint",
         });
         this.moveToPoints_client = new Service({
             ros: this.ros,
-            name: namespace + "/nav2/follow_waypoints",
+            name: namespace + "/nav2/move_to_points",
             serviceType: "message/srv/MoveToPoints",
         });
         this.partrolPoints_client = new Service({
