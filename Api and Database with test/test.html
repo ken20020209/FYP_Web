@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body>
+    <h1>register</h1>
+    <form action="http://localhost:5000/register" method="POST">
+        <label for="name">姓名:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="position">职位:</label>
+        <input type="text" id="position" name="position"><br><br>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="注册用户">
+    </form>
+
+    <h1>login</h1>
+    <form action="http://localhost:5000/login" method="POST">
+        <label for="User_ID">User ID:</label>
+        <input type="text" id="User_ID" name="User_ID"><br><br>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="用户登录">
+    </form>
+
+    
+    <h1>change_password</h1>
+    <form action="http://localhost:5000/change_password" method="POST">
+        <label for="User_ID">User ID:</label>
+        <input type="text" id="User_ID" name="User_ID"><br><br>
+        <label for="old_password">旧密码:</label>
+        <input type="password" id="old_password" name="old_password"><br><br>
+        <label for="new_password">新密码:</label>
+        <input type="password" id="new_password" name="new_password"><br><br>
+        <input type="submit" value="修改密码">
+    </form>
+
+    <h1>delete_account</h1>
+    <form action="http://localhost:5000/delete_account" method="POST">
+        <label for="User_ID">User ID:</label>
+        <input type="text" id="User_ID" name="User_ID"><br><br>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="删除账户">
+    </form>
+
+    <h1>create dog</h1>
+    <form action="http://localhost:5000/create_dog" method="POST">
+        <label for="dogID">User ID:</label>
+        <input type="text" id="dogID" name="dogID"><br><br>
+        <label for="name">name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="detail">detail:</label>
+        <input type="text" id="detail" name="detail"><br><br>
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>create info dog</h1>
+    <form action="http://localhost:5000/info_dog" method="GET">
+        
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>update dog</h1>
+    <form action="http://localhost:5000/update_dog" method="POST">
+        <label for="dogID">User ID:</label>
+        <input type="text" id="dogID" name="dogID"><br><br>
+        <label for="name">name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="detail">detail:</label>
+        <input type="text" id="detail" name="detail"><br><br>
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>Video Upload</h1>
+    <form action="http://localhost:5000/upload_video" method="post" enctype="multipart/form-data">
+        <label for="dog_id">Dog ID:</label>
+        <input type="text" id="dog_id" name="dog_id" required><br><br>
+        <label for="video">Video:</label>
+        <input type="file" id="video" name="video" accept="video/mp4" required><br><br>
+        <input type="submit" value="Upload">
+    </form>
+
+    <h1>Search Dog Videos</h1>
+    <form action="http://localhost:5000/search_videos" method="GET">
+        <label for="dog_id">Dog ID:</label>
+        <input type="text" id="dog_id" name="dog_id" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
