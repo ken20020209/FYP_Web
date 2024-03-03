@@ -8,6 +8,9 @@
 import RFB from '@novnc/novnc/core/rfb.js';
 import { onMounted, ref } from 'vue';
 
+const props = defineProps(['url'])
+const url = props.url
+
 const vncContainer = ref(null);
 const init =()=>{
     // const vncContainer = $refs.vncContainer;
