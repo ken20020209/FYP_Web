@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue';
-    const controller= defineProps(['controller']);
-    const navigation = controller.controller.navigation;
+    const props= defineProps(['controller']);
+    const navigation = props.controller.navigation;
 
     const points= ref([[0,0,0],[0,0,0]]);
     const isTaskCompleted=ref(false);

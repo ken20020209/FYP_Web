@@ -5,8 +5,8 @@
   </template>
   <script setup>
   
-  const controller= defineProps(['controller']);
-  const actionController = controller.controller.action;
+  const props= defineProps(['controller']);
+  const actionController = props.controller.action;
   
   </script>
   

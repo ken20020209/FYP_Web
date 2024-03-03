@@ -8,13 +8,15 @@
 import RFB from '@novnc/novnc/core/rfb.js';
 import { onMounted, ref } from 'vue';
 
-const props = defineProps(['url'])
-const url = props.url
+const props = defineProps(['controller'])
+const ip = props.controller.ip
+// console.log(url)
 
 const vncContainer = ref(null);
 const init =()=>{
+    
     // const vncContainer = $refs.vncContainer;
-    const yourVncServerUrl = "localhost:6080"
+    const yourVncServerUrl = `${ip}:6080`
     const yourVncPassword = "123456"
 
     const rfb = new RFB(vncContainer.value, `ws://${yourVncServerUrl}`);

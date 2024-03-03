@@ -56,7 +56,9 @@
             //create dogListRos
             for (let i = 0; i < result.dog_ids.length; i++) {
                 //create ros connection for each dog
-                let ros=new ROSLIB.Ros({ url: "ws://localhost:"+result.ports[i] });
+                const host=import.meta.env.VITE_HOST;
+                const url= "ws://"+host+":"+result.ports[i];
+                let ros=new ROSLIB.Ros({ url: url });
                 let name=result.dog_ids[i];
                 ros.on("connection", () => {
                   console.log("Connected to websocket server.");

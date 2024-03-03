@@ -11,7 +11,7 @@
 </template>
 <script setup>
 
-const controller= defineProps(['controller']);
-const movement = controller.controller.movement;
+const props= defineProps(['controller']);
+const movement = props.controller.movement;
 
 </script>

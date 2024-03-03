@@ -1,7 +1,7 @@
 <script setup>
     import { ref } from 'vue';
-    const controller= defineProps(['controller']);
-    const navigation = controller.controller.navigation;
+    const props= defineProps(['controller']);
+    const navigation = props.controller.navigation;
     const x = ref(0);
     const y = ref(0);
     const poses=ref([]);

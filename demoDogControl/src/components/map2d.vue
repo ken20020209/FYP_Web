@@ -17,11 +17,11 @@ import { ref, onMounted } from 'vue';
 import ROSLIB from "roslib";
 import * as ROS2D from "ros2d";
 
-const controller = defineProps(['controller']);
-const ros = controller.controller.ros;
+const props = defineProps(['controller']);
+const ros = props.controller.ros;
 const msg = ref('');
 
-const name=ref("map2d/"+controller.controller.name);
+const name=ref("map2d/"+props.controller.name);
 var zoomView;
 const init = () => {
   // const map2d = new ROSLIB.Topic({

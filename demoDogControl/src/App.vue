@@ -6,9 +6,13 @@ import { ref } from "vue";
 
 import ROSLIB from "roslib";
 
+// use env variable to get ip address
+// console.log(import.meta.env.VITE_HOST);
+const host=import.meta.env.VITE_HOST;
+const url= "ws://"+host+":9090";
 
 //main ros connection that connects connector server
-const ros = new ROSLIB.Ros({ url: "ws://localhost:9090" });
+const ros = new ROSLIB.Ros({ url: url });
 const useController = ref(true);
 const useConnector = ref(false);
 
@@ -21,6 +25,7 @@ ros.on("connection", () => {
   ros.on("close", () => {
     console.log("Connection to websocket server closed.");
   });
+
 
 
 
