@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@novnc/novnc": "^1.4.0",
     "createjs-module": "^0.8.3",
     "ros2d": "github:smhylc/ros2djs",
     "roslib": "github:ken20020209/roslibjs#v2",
