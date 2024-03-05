@@ -9,6 +9,7 @@ import { BasicNavigator } from "./NavigationSever";
  * @classdesc Controller class for the robot dog
  * @param {ROSLIB.Ros} ros - ROS connection
  * @param {string} name - Name of the robot dog
+ * @param {number} domainID - Domain ID of the robot dog
  */
 export class Controller {
   constructor(ros,name='',domainID=16) {
@@ -16,7 +17,7 @@ export class Controller {
     this.namespace = "";
     this.ros = ros;
     this.ip="";
-    this.domainID=domainID;
+    this.domainID=parseInt(domainID);
 
     // components
     this.movement = new Movement(ros);
