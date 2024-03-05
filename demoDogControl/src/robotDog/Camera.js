@@ -15,6 +15,11 @@ export class Camera {
       name: "/camera/enable",
       messageType: "std_msgs/msg/Bool",
     });
+    this.camera_setting = new ROSLIB.Topic({
+      ros: this.ros,
+      name: "/camera/setting",
+      messageType: "std_msgs/msg/Int32",
+    });
   }
 
   enableCamera(index=0) {
@@ -35,7 +40,12 @@ export class Camera {
   unSubCamCapture(index) {
     this.camera.unsubscribe();
   }
-  changeEffect(index, affection) {
+  /*
+  * @param index: camera index
+  * @param affection: 0: no change, 1: object detect, 2: face detect, 3: other
+  */
+  changeEffect(index, affection=0) {
     throw new Error("Not implemented");
+    this.camera_setting.publish(new ROSLIB.Message({ data: affection }));
   }
 }
