@@ -11,6 +11,8 @@ import ROSLIB from "roslib";
 const host=import.meta.env.VITE_HOST;
 const url= "ws://"+host+":9090";
 
+const page = ref(0);
+
 //main ros connection that connects connector server
 const ros = new ROSLIB.Ros({ url: url });
 const useController = ref(true);
@@ -33,17 +35,20 @@ ros.on("connection", () => {
 <template>
   <main>
     <!-- click button switch below two mode -->
-    <button v-on:click="useController=!useController;useConnector=!useConnector">Switch use Controller or use Connector</button>
+    <!-- <button v-on:click="useController=!useController;useConnector=!useConnector">Switch use Controller or use Connector</button> -->
+    <button v-on:click="page=0">None</button>
+    <button v-on:click="page=1">Controller</button>
+    <button v-on:click="page=2">Connector</button>
 
     <!-- for direct connect controller server demo-->
     <!-- it use ip address on js  -->
-    <controller :ros=ros  v-if="useController"></controller>
+    <controller :ros=ros  v-if="page==1"></controller>
   
     <!-- for direct connect connector server -->
     <!-- it use ip address on js that connect to connector server  -->
     <!-- the connector server get dog list port  -->
     <!-- then create each dog ros connection -->
-    <connector :ros=ros v-if="useConnector"></connector>
+    <connector :ros=ros v-if="page==2"></connector>
 
   </main>
 </template>
