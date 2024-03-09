@@ -19,8 +19,8 @@ import navigationServer from './navigationServer.vue';
 import vncRviz from './vncRviz.vue';
 import { Controller } from '../robotDog';
 
-const props= defineProps(['ros','name']);
+const props= defineProps(['ros','name','domainID']);
 // console.log(props.ros);
-const controller = new Controller(props.ros,props.name);
+const controller = new Controller(props.ros,props.name,props.domainID);
 
 </script>

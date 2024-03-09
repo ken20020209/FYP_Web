@@ -74,14 +74,14 @@ export class Controller {
    * @param {boolean} status - Status of the navigation
    */
   setNavigation(status) {
-
-    if(typeof(status)!=Boolean){
+    // console.log(typeof(status)==typeof(Boolean()));
+    if(typeof(status)!=typeof(Boolean())){
       throw new Error("Invalid status type it should boolean");
     }
     let request = new ROSLIB.ServiceRequest({
       switch_service: status,
     });
-    this.navigation_switch_service.callService(request, _setNavigationCallback);
+    this.navigation_switch_service.callService(request, this._setNavigationCallback);
   }
   _setNavigationCallback(msg){
     console.log("Navigation status set to: "+msg.result);
@@ -99,13 +99,13 @@ export class Controller {
    * @param {boolean} status - Status of the slam
    */
   setSlam(status) {
-    if(typeof(status)!=Boolean){
+    if(typeof(status)!=typeof(Boolean())){
       throw new Error("Invalid status type it should boolean");
     }
     let request = new ROSLIB.ServiceRequest({
       switch_service: status,
     });
-    this.slam_switch_service.callService(request, _setSlamCallback);
+    this.slam_switch_service.callService(request, this._setSlamCallback);
   }
   _setSlamCallback(msg){
     console.log("Slam status set to: "+msg.result);

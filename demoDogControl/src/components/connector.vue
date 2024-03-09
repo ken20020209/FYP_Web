@@ -17,7 +17,7 @@
     <p>{{ dogList }}</p>
     <div class="grid-container">
       <template v-for="dogRos in dogListRos" >
-          <controller :ros=dogRos[0] :name=dogRos[1] class="grid-item"></controller>
+          <controller :ros=dogRos[0] :name=dogRos[1] :domainID=dogRos[2] class="grid-item"></controller>
       </template>
     </div>
   
@@ -47,7 +47,7 @@
     dogConnector.getDogList(
         (result)=>
         {
-            console.log(result);
+            // console.log(result);
             dogList.value=result;
             
             //clear dogListRos
@@ -58,8 +58,13 @@
                 //create ros connection for each dog
                 const host=import.meta.env.VITE_HOST;
                 const url= "ws://"+host+":"+result.ports[i];
+                
+                
                 let ros=new ROSLIB.Ros({ url: url });
                 let name=result.dog_ids[i];
+                let domainID=result.domain_ids[i];
+                let type = result.types[i];
+                
                 ros.on("connection", () => {
                   console.log("Connected to websocket server.");
                 });
@@ -71,7 +76,7 @@
                 });
 
                 //add ros connection to dogListRos
-                dogListRos.value.push([ros,name]);
+                dogListRos.value.push([ros,name,domainID]);
             }
         }
     );

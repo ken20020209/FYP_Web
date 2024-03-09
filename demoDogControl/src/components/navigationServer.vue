@@ -1,6 +1,7 @@
 <script setup>
     import { ref } from 'vue';
     const props= defineProps(['controller']);
+    const controller = props.controller;
     const navigation = props.controller.navigation;
 
     const points= ref([[0,0,0],[0,0,0]]);
@@ -56,7 +57,21 @@
     }
 
 
-
+    const start_stop_message= ref("none")
+    const navi_on=ref(false);
+    const slam_on=ref(false);
+    controller._setNavigationCallback=(msg)=>{
+        start_stop_message.value=msg.result;
+    }
+    controller._setSlamCallback=(msg)=>{
+        start_stop_message.value=msg.result;
+    }
+    controller.navigation_on_sub.subscribe((msg)=>{
+        navi_on.value=msg.data; 
+    });
+    controller.slam_on_sub.subscribe((msg)=>{
+        slam_on.value=msg.data;
+    });
     
     
 </script>
@@ -79,6 +94,23 @@
             yaw:<input type="number" min="0" max="360" step="1" v-model="point[2]" />
         </p>
     </template>
+
+    
+    <p>
+        <!-- start nav -->
+        <h1>Start Navigation ({{ navi_on }})</h1>
+        
+        <button @click="controller.startNavigation">Start Navigation</button>
+        <button @click="controller.stopNavigation">Stop Navigation</button>
+        <!-- start slam -->
+        <h1>Start SLAM  ({{ slam_on }})</h1>
+        <button @click="controller.startSlam">Start SLAM</button>
+        <button @click="controller.stopSlam">Stop SLAM</button>
+        <h1>feedback</h1>
+        <p>{{start_stop_message}}</p>
+        
+    </p>
+
 
 
 
