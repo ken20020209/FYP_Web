@@ -3,7 +3,7 @@ import ROSLIB from "roslib";
 
 //basic nav2 simple commander api
 export class BasicNavigator {
-    constructor(ros, namespace) {
+    constructor(ros, namespace="") {
         this.ros = ros;
         this.namespace = namespace;
 
