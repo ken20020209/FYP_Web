@@ -79,10 +79,10 @@ init();
       v-model:checked-keys="checks"
       :data="tree"
       key-field="id"
-      block-line
       checkable
       expand-on-click
       virtual-scroll
+      block-line
       class="h-280px"
     />
     <template #footer>

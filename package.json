@@ -45,6 +45,7 @@
   "dependencies": {
     "@better-scroll/core": "2.5.1",
     "@iconify/vue": "4.1.1",
+    "@novnc/novnc": "^1.4.0",
     "@sa/axios": "workspace:*",
     "@sa/color-palette": "workspace:*",
     "@sa/hooks": "workspace:*",
@@ -58,6 +59,7 @@
     "naive-ui": "2.38.1",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
+    "roslib": "github:ken20020209/roslibjs#v2",
     "vue": "3.4.21",
     "vue-draggable-plus": "0.3.5",
     "vue-i18n": "9.10.2",
