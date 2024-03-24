@@ -4,32 +4,55 @@ import { Camera } from './Camera';
 import { Action } from './Action';
 import { BasicNavigator } from './NavigationSever';
 
-/**
- * @class Controller
- * @param {ROSLIB.Ros} ros - ROS connection
- * @param {string} name - Name of the robot dog
- * @param {number} domainID - Domain ID of the robot dog
- * @classdesc Controller class for the robot dog
- */
+interface msgSwitchService {
+  result: boolean;
+}
+
 export class Controller {
-  constructor(ros, name = '', domainID = 16) {
+  name: string;
+  namespace: string;
+  ros: ROSLIB.Ros;
+  ip: string;
+  port: string;
+  domainID: number;
+  type: string;
+  battery: number;
+
+  movement: Movement;
+  camera: Camera;
+  action: Action;
+  navigation: BasicNavigator;
+
+  navigation_on: boolean;
+  slam_on: boolean;
+  navigation_on_sub: ROSLIB.Topic;
+  slam_on_sub: ROSLIB.Topic;
+  navigation_switch_service: ROSLIB.Service;
+  slam_switch_service: ROSLIB.Service;
+
+  // eslint-disable-next-line max-params
+  constructor(
+    ip: string,
+    port: string,
+    name: string = '',
+    domainID: string = '16',
+    type: string = 'dog',
+    battery: number = 100
+  ) {
     this.name = name;
     this.namespace = '';
-    this.ros = ros;
-    this.ip = '';
+    this.ros = new ROSLIB.Ros({ url: `ws://${ip}:${port}` });
+    this.ip = ip;
+    this.port = port;
     this.domainID = Number.parseInt(domainID, 10);
+    this.type = type;
+    this.battery = battery;
 
     // components
-    this.movement = new Movement(ros);
-    this.camera = new Camera(ros);
-    this.action = new Action(ros);
-    this.navigation = new BasicNavigator(ros);
-
-    // extract ip from url
-    const url = this.ros.socket.url;
-    const ip = url.split(':')[1].split('//')[1];
-    this.ip = ip;
-    // console.log(this.ip);
+    this.movement = new Movement(this.ros);
+    this.camera = new Camera(this.ros);
+    this.action = new Action(this.ros);
+    this.navigation = new BasicNavigator(this.ros);
 
     this.navigation_on = false;
     this.slam_on = false;
@@ -61,10 +84,10 @@ export class Controller {
     });
   }
 
-  navigationOnCallback(msg) {
+  navigationOnCallback(msg: any) {
     this.navigation_on = msg.data;
   }
-  slamOnCallback(msg) {
+  slamOnCallback(msg: any) {
     this.slam_on = msg.data;
   }
 
@@ -74,17 +97,17 @@ export class Controller {
    * @function setNavigation
    * @param {boolean} status - Status of the navigation
    */
-  setNavigation(status) {
+  setNavigation(status: Boolean) {
     // console.log(typeof(status)==typeof(Boolean()));
-    if (typeof status !== typeof Boolean()) {
-      throw new TypeError('Invalid status type it should boolean');
-    }
+    // if (typeof status !== typeof Boolean()) {
+    //   throw new TypeError('Invalid status type it should boolean');
+    // }
     const request = new ROSLIB.ServiceRequest({
       switch_service: status
     });
     this.navigation_switch_service.callService(request, this.setNavigationCallback);
   }
-  setNavigationCallback(msg) {
+  setNavigationCallback(msg: msgSwitchService) {
     console.log(`${this}Navigation status set to: ${msg.result}`);
   }
   startNavigation() {
@@ -98,18 +121,18 @@ export class Controller {
    * Set the slam status
    *
    * @function setSlam
-   * @param {boolean} status - Status of the slam
+   * @param {Boolean} status - Status of the slam
    */
-  setSlam(status) {
-    if (typeof status !== typeof Boolean()) {
-      throw new TypeError('Invalid status type it should boolean');
-    }
+  setSlam(status: Boolean) {
+    // if (typeof status !== typeof Boolean()) {
+    //   throw new TypeError('Invalid status type it should boolean');
+    // }
     const request = new ROSLIB.ServiceRequest({
       switch_service: status
     });
     this.slam_switch_service.callService(request, this.setSlamCallback);
   }
-  setSlamCallback(msg) {
+  setSlamCallback(msg: msgSwitchService) {
     console.log(`${this}Slam status set to: ${msg.result}`);
   }
   startSlam() {

@@ -164,7 +164,10 @@ const local: App.I18n.Schema = {
     exception: '异常页',
     exception_403: '403',
     exception_404: '404',
-    exception_500: '500'
+    exception_500: '500',
+    record: '视频记录',
+    user: '用户',
+    robot: '机器人'
   },
   page: {
     login: {

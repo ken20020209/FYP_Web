@@ -174,6 +174,9 @@ const routeMap: RouteMap = {
   "multi-menu_second": "/multi-menu/second",
   "multi-menu_second_child": "/multi-menu/second/child",
   "multi-menu_second_child_home": "/multi-menu/second/child/home",
+  "record": "/record",
+  "robot": "/robot",
+  "user": "/user",
   "user-center": "/user-center"
 };
 

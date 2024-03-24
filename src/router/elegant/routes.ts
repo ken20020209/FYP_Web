@@ -257,8 +257,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base',
     meta: {
       title: 'multi-menu',
-      i18nKey: 'route.multi-menu',
-      order: 8
+      i18nKey: 'route.multi-menu'
     },
     children: [
       {
@@ -266,8 +265,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/multi-menu/first',
         meta: {
           title: 'multi-menu_first',
-          i18nKey: 'route.multi-menu_first',
-          order: 1
+          i18nKey: 'route.multi-menu_first'
         },
         children: [
           {
@@ -286,8 +284,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/multi-menu/second',
         meta: {
           title: 'multi-menu_second',
-          i18nKey: 'route.multi-menu_second',
-          order: 2
+          i18nKey: 'route.multi-menu_second'
         },
         children: [
           {
@@ -312,6 +309,36 @@ export const generatedRoutes: GeneratedRoute[] = [
         ]
       }
     ]
+  },
+  {
+    name: 'record',
+    path: '/record',
+    component: 'layout.base$view.record',
+    meta: {
+      title: 'record',
+      i18nKey: 'route.record',
+      icon: 'ic:round-videocam'
+    }
+  },
+  {
+    name: 'robot',
+    path: '/robot',
+    component: 'layout.base$view.robot',
+    meta: {
+      title: 'robot',
+      i18nKey: 'route.robot',
+      icon: 'ic:round-android'
+    }
+  },
+  {
+    name: 'user',
+    path: '/user',
+    component: 'layout.base$view.user',
+    meta: {
+      title: 'user',
+      i18nKey: 'route.user',
+      icon: 'ic:round-person'
+    }
   },
   {
     name: 'user-center',

@@ -13,6 +13,7 @@
     },
     "resolveJsonModule": true,
     "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"],
+    "allowJs": true,
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
