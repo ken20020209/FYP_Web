@@ -167,7 +167,8 @@ const local: App.I18n.Schema = {
     exception_500: '500',
     record: 'Record',
     robot: 'Robot',
-    user: 'User'
+    user: 'User',
+    'control-panel': 'Control Panel'
   },
   page: {
     login: {

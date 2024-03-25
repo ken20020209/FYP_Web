@@ -11,6 +11,7 @@ export const useConnectorStore = defineStore({
   state: () => ({
     connector: ref<Connector>(new Connector('localhost', '9090')),
     controllers: ref<{ [robot_id: string]: Controller }>({}),
+    curController: ref<Controller>(),
     robotList: ref<any>(),
     timer: setInterval(() => {
       const store = useConnectorStore();
@@ -48,7 +49,14 @@ export const useConnectorStore = defineStore({
     },
     getRobotList(): msgGetRobotList {
       return this.robotList;
+    },
+    getCurController(): Controller | undefined {
+      return this.curController;
     }
   },
-  actions: {}
+  actions: {
+    setCurController(controller: Controller): void {
+      this.curController = controller;
+    }
+  }
 });

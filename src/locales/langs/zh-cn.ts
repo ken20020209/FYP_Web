@@ -167,7 +167,8 @@ const local: App.I18n.Schema = {
     exception_500: '500',
     record: '视频记录',
     user: '用户',
-    robot: '机器人'
+    robot: '机器人',
+    'control-panel': '控制面板'
   },
   page: {
     login: {

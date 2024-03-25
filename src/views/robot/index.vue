@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useConnectorStore } from '@/store/modules/robot';
 import RobotCard from './robotCard.vue';
-useConnectorStore();
+// useConnectorStore();
 
 const { controllers } = useConnectorStore();
 </script>

@@ -48,6 +48,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'control-panel',
+    path: '/control-panel',
+    component: 'layout.base$view.control-panel',
+    meta: {
+      title: 'control-panel',
+      i18nKey: 'route.control-panel'
+    },
+  },
+  {
     name: 'function',
     path: '/function',
     component: 'layout.base',

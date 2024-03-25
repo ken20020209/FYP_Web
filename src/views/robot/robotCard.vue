@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useMessage } from 'naive-ui';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type { Controller } from '@/robot/Controller';
+import { router } from '@/router';
+import { useConnectorStore } from '@/store/modules/robot';
 
 interface Props {
   controller: Controller;
@@ -34,19 +36,52 @@ onMounted(() => {
   });
   // controller.camera.enableCamera(0);
 });
+
+onUnmounted(() => {
+  controller.camera.unSubCamCapture(0);
+});
+
+const cardOnClick = () => {
+  message.info('Card clicked');
+  // router to control-panel.vue page params controller
+  useConnectorStore().setCurController(controller);
+  router.push({ name: 'control-panel' });
+};
+const btnOn = () => {
+  controller.camera.enableCamera(0);
+};
+const btnOff = () => {
+  controller.camera.disableCamera(0);
+};
 </script>
 
 <template>
-  <NCard :title="controller.name">
-    <NSpace justify="center">
-      <NImage :src="camera" width="100%"></NImage>
-    </NSpace>
-    <NSpace>
-      <NDropdown trigger="hover" :options="streamEffects" @select="handleSelectEffect">
-        <NButton>{{ curStreamEffect }}</NButton>
-      </NDropdown>
-      <NButton @click="controller.camera.enableCamera(0)">On</NButton>
-      <NButton @click="controller.camera.disableCamera(0)">Off</NButton>
-    </NSpace>
+  <NCard @click="cardOnClick">
+    <template #header>
+      {{ controller.name }}
+    </template>
+    <template #default>
+      <img :src="camera" />
+    </template>
+
+    <template #action>
+      <div
+        @click="
+          e => {
+            e.stopPropagation();
+          }
+        "
+      >
+        <NFlex justify="space-between">
+          <NDropdown trigger="hover" :options="streamEffects" @select="handleSelectEffect">
+            <NButton>{{ curStreamEffect }}</NButton>
+          </NDropdown>
+          <NFlex>
+            <NButton type="success" @click="btnOn">On</NButton>
+            <NButton type="error" @click="btnOff">Off</NButton>
+          </NFlex>
+        </NFlex>
+      </div>
+    </template>
   </NCard>
 </template>
