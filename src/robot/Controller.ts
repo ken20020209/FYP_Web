@@ -5,7 +5,7 @@ import { Action } from './Action';
 import { BasicNavigator } from './NavigationSever';
 
 interface msgSwitchService {
-  result: boolean;
+  result: string;
 }
 
 export class Controller {

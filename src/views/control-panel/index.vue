@@ -1,63 +1,55 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useConnectorStore } from '@/store/modules/robot';
+import Movement from './control-movement.vue';
+import VucRviz from './control-vncRviz.vue';
+import Action from './control-action.vue';
+import Camera from './control-camera.vue';
+import Navigation from './control-navigation.vue';
 
 const { curController } = useConnectorStore();
 
-const camera = ref<any>('/favicon.svg');
+onMounted(() => {});
 
-const actions = ref<any>([]);
-onMounted(() => {
-  curController?.camera.subCamCapture(0, (msg: { data: String }) => {
-    camera.value = `data:image/jpeg;base64,${msg.data}`;
-  });
-
-  for (const action of Object.keys(curController?.action.actionList as any)) {
-    actions.value.push(action);
-  }
-
-  // controller.camera.enableCamera(0);
-});
-
-onUnmounted(() => {
-  curController?.camera.unSubCamCapture(0);
-});
+onUnmounted(() => {});
 </script>
 
 <template>
-  <!--
- <NCard size="huge">
-    <template #header>
-      {{ curController?.name }}
-    </template>
-    <template #default>
-      <NImage :src="camera" />
-    </template>
-  </NCard>
--->
-  <NFlex justify="space-between">
-    <NFlex justify="space-between" vertical>
-      <NButton type="error">Return</NButton>
-      <NButton>Oops!</NButton>
-      <NButton>Oops!</NButton>
-    </NFlex>
-    <NFlex justify="space-between" vertical>
-      <NH1>{{ curController?.name }}</NH1>
-      <NImage :src="camera" width="100%" />
-      <NInput type="text"></NInput>
-    </NFlex>
-    <NFlex justify="space-between" vertical>
-      <NButton>Oops!</NButton>
-      <NFlex>
-        <NVirtualList :items="actions" :item-size="20" item-resizable>
-          <template #default="{ item }">
-            <div :key="item">
-              <NButton>{{ item }}</NButton>
-            </div>
-          </template>
-        </NVirtualList>
+  <div v-if="curController">
+    <NCard>
+      <NH1>
+        {{ curController?.name }}
+      </NH1>
+    </NCard>
+    <NCard>
+      <NFlex justify="space-between">
+        <NFlex justify="space-between" vertical>
+          <NButton type="error">Return</NButton>
+          <NButton>Oops!</NButton>
+          <Movement :controller="curController"></Movement>
+        </NFlex>
+        <NFlex justify="space-between" vertical>
+          <NH1>{{ curController?.name }}</NH1>
+          <Camera :controller="curController"></Camera>
+          <NInput type="text"></NInput>
+        </NFlex>
+        <NFlex justify="space-between" vertical>
+          <NButton>Oops!</NButton>
+          <Action :controller="curController"></Action>
+          <NButton>Oops!</NButton>
+        </NFlex>
       </NFlex>
-      <NButton>Oops!</NButton>
-    </NFlex>
-  </NFlex>
+    </NCard>
+    <Ncard>
+      <Navigation :controller="curController"></Navigation>
+    </Ncard>
+    <Ncard>
+      <VucRviz :controller="curController"></VucRviz>
+    </Ncard>
+  </div>
+  <div v-else>
+    <NCard>
+      <NH1>Not Connected</NH1>
+    </NCard>
+  </div>
 </template>

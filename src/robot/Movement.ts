@@ -1,7 +1,12 @@
 import ROSLIB from 'roslib';
 
 export class Movement {
-  constructor(ros) {
+  private ros: ROSLIB.Ros;
+  private cmd_vel: ROSLIB.Topic;
+  private linear: { x: number; y: number; z: number };
+  private angular: { x: number; y: number; z: number };
+
+  constructor(ros: ROSLIB.Ros) {
     this.ros = ros;
 
     this.cmd_vel = new ROSLIB.Topic({
@@ -9,11 +14,11 @@ export class Movement {
       name: '/cmd_vel',
       messageType: 'geometry_msgs/Twist'
     });
-    this.linear = {};
-    this.angular = {};
+    this.linear = {} as any;
+    this.angular = {} as any;
 
     this.initTwist();
-    this.stop();
+    // this.stop();
   }
   initTwist() {
     this.linear.x = 0;
@@ -32,28 +37,28 @@ export class Movement {
     });
     this.cmd_vel.publish(twist);
   }
-  move_forward(speed) {
-    this.linear.x = speed || 0.5;
+  move_forward(speed: number = 0.5) {
+    this.linear.x = speed;
     this.cmd_vel_publish();
   }
-  move_backward(speed) {
-    this.linear.x = speed || -0.5;
+  move_backward(speed: number = 0.5) {
+    this.linear.x = speed;
     this.cmd_vel_publish();
   }
-  move_left(speed) {
-    this.linear.y = speed || 0.5;
+  move_left(speed: number = 0.5) {
+    this.linear.y = speed;
     this.cmd_vel_publish();
   }
-  move_right(speed) {
-    this.linear.y = speed || -0.5;
+  move_right(speed: number = 0.5) {
+    this.linear.y = speed;
     this.cmd_vel_publish();
   }
-  turn_left(speed) {
-    this.angular.z = speed || 1;
+  turn_left(speed: number = 0.5) {
+    this.angular.z = speed;
     this.cmd_vel_publish();
   }
-  turn_right(speed) {
-    this.angular.z = speed || -1;
+  turn_right(speed: number = 0.5) {
+    this.angular.z = speed;
     this.cmd_vel_publish();
   }
   stop() {

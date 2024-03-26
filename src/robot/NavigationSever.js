@@ -46,7 +46,8 @@ export class BasicNavigator {
     });
   }
   // craete 2d pose by x, y, and yaw
-  static createPose2D(x, y, yaw) {
+  // eslint-disable-next-line class-methods-use-this
+  createPose2D(x, y, yaw) {
     return new Pose({
       position: {
         x,

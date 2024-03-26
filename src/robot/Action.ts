@@ -1,7 +1,9 @@
 import ROSLIB from 'roslib';
 
 export class Action {
-  actionList = {
+  private ros: ROSLIB.Ros;
+  private actionTopic: ROSLIB.Topic;
+  public actionList: { [key: string]: () => void } = {
     Lie_Down: () => this.doAction(1),
     Stand_Up: () => this.doAction(2),
     Crawl: () => this.doAction(3),
@@ -23,7 +25,7 @@ export class Action {
     Handshake: () => this.doAction(19),
     Reset: () => this.doAction(255)
   };
-  constructor(ros) {
+  constructor(ros: ROSLIB.Ros) {
     this.ros = ros;
 
     this.actionTopic = new ROSLIB.Topic({
@@ -33,7 +35,7 @@ export class Action {
     });
   }
   // string action ref action list
-  doAction(action) {
+  doAction(action: number) {
     const actionMsg = new ROSLIB.Message({
       data: action
     });

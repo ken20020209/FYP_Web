@@ -54,7 +54,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'control-panel',
       i18nKey: 'route.control-panel'
-    },
+    }
   },
   {
     name: 'function',

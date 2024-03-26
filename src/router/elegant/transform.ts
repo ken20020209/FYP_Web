@@ -114,14 +114,14 @@ function transformElegantRouteToVueRoute(
     }
 
   }
-
+  
   // add redirect to child
   if (children?.length && !vueRoute.redirect) {
     vueRoute.redirect = {
       name: children[0].name
     };
   }
-
+  
   if (children?.length) {
     const childRoutes = children.flatMap(child => transformElegantRouteToVueRoute(child, layouts, views));
 
@@ -151,6 +151,7 @@ const routeMap: RouteMap = {
   "404": "/404",
   "500": "/500",
   "about": "/about",
+  "control-panel": "/control-panel",
   "function": "/function",
   "function_hide-child": "/function/hide-child",
   "function_hide-child_one": "/function/hide-child/one",
@@ -177,8 +178,7 @@ const routeMap: RouteMap = {
   "record": "/record",
   "robot": "/robot",
   "user": "/user",
-  "user-center": "/user-center",
-  "control-panel": "/control-panel",
+  "user-center": "/user-center"
 };
 
 /**

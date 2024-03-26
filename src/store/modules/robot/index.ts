@@ -28,6 +28,7 @@ export const useConnectorStore = defineStore({
               msg.domain_ids[i].toString(),
               msg.types[i]
             );
+            if (store.curController === undefined) store.curController = store.controllers[msg.dog_ids[i]];
           } else {
             store.controllers[msg.dog_ids[i]].battery = msg.batterys[i];
           }
