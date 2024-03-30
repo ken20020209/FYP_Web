@@ -51,7 +51,6 @@ declare module "@elegant-router/types" {
     "multi-menu_second_child_home": "/multi-menu/second/child/home";
     "record": "/record";
     "robot": "/robot";
-    "user": "/user";
     "user-center": "/user-center";
   };
 
@@ -100,7 +99,6 @@ declare module "@elegant-router/types" {
     | "multi-menu"
     | "record"
     | "robot"
-    | "user"
     | "user-center"
   >;
 
@@ -143,7 +141,6 @@ declare module "@elegant-router/types" {
     | "record"
     | "robot"
     | "user-center"
-    | "user"
   >;
 
   /**

@@ -20,14 +20,14 @@ const turn_right = () => movement.turn_right();
 <template>
   <NCard title="Momvent">
     <NFlex vertical>
-      <NFlex justify="">
+      <NFlex justify="space-between">
         <NFlex><NButton type="info" @click="turn_left">Trun Left</NButton></NFlex>
         <NFlex><NButton type="info" @click="move_forward">Forward</NButton></NFlex>
         <NFlex><NButton type="info" @click="turn_right">Trun Right</NButton></NFlex>
       </NFlex>
       <NFlex justify="space-between">
         <NFlex><NButton type="info" @click="move_left">Left</NButton></NFlex>
-        <!-- <NFlex><NButton type="info" hidden>Return</NButton></NFlex> -->
+        <NButton type="error" @click="stop">Stop</NButton>
         <NFlex><NButton type="info" @click="move_right">Right</NButton></NFlex>
       </NFlex>
       <NFlex justify="space-between">
@@ -35,7 +35,7 @@ const turn_right = () => movement.turn_right();
         <NFlex><NButton type="info" @click="move_backward">Back</NButton></NFlex>
         <div></div>
       </NFlex>
-      <NButton type="error" @click="stop">Stop</NButton>
+      <!-- <NButton type="error" @click="stop">Stop</NButton> -->
     </NFlex>
   </NCard>
 </template>

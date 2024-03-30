@@ -72,10 +72,24 @@ const addPoint = () => {
   });
 };
 const removePoint = () => {
-  points.value.pop();
+  if (points.value.length > 2) points.value.pop();
 };
-const clearPoints = () => {
-  points.value = [];
+// const clearPoints = () => {
+//   points.value = [];
+// };
+const resetPoints = () => {
+  points.value = [
+    {
+      x: 0,
+      y: 0,
+      yaw: 0
+    },
+    {
+      x: 0,
+      y: 0,
+      yaw: 0
+    }
+  ];
 };
 
 const start_stop_message = ref('none');
@@ -96,38 +110,46 @@ controller.slam_on_sub.subscribe((msg: any) => {
 </script>
 
 <template>
-  <NH1>Navigation</NH1>
-  <NP>isTaskCompleted:{{ isTaskCompleted }}</NP>
-  <NP>feedback:{{ feedback }}</NP>
-  <NButton @click="moveToPoint">Move to frist point</NButton>
-  <NButton @click="moveToPoints">Move to points</NButton>
-  <NButton @click="patrolPoints">Patrol points</NButton>
-  <NButton @click="stopNavigation">Stop navigation</NButton>
-  <NButton @click="addPoint">Add point</NButton>
-  <NButton @click="removePoint">Remove point</NButton>
-  <NButton @click="clearPoints">Clear points</NButton>
-  <NFlex v-for="point in points" :key="point.x">
-    <NP>
-      x:
-      <input v-model="point.x" type="number" step="1" />
-      y:
-      <input v-model="point.y" type="number" step="1" />
-      yaw:
-      <input v-model="point.yaw" type="number" step="1" />
-    </NP>
-  </NFlex>
+  <NCard v-if="slam_on || navi_on" title="Navigation Panel">
+    <NH1>isTaskCompleted:</NH1>
+    <NSwitch :value="isTaskCompleted">
+      <template #checked>Task Completed</template>
+      <template #unchecked>Task Uncompleted</template>
+    </NSwitch>
 
-  <NFlex>
-    <!-- start nav -->
-    <NH1>Start Navigation ({{ navi_on }})</NH1>
+    <NH1>
+      feedback
+      <NInput v-model:value="feedback" placeholder="feedback"></NInput>
+    </NH1>
 
-    <NButton @click="controller.startNavigation()">Start Navigation</NButton>
-    <NButton @click="controller.stopNavigation()">Stop Navigation</NButton>
-    <!-- start slam -->
-    <NH1>Start SLAM ({{ slam_on }})</NH1>
-    <NButton @click="controller.startSlam()">Start SLAM</NButton>
-    <NButton @click="controller.stopSlam()">Stop SLAM</NButton>
-    <NH1>feedback</NH1>
-    <p>{{ start_stop_message }}</p>
-  </NFlex>
+    <NForm label-placement="left" :label-width="40">
+      <NFlex>
+        <NButton @click="addPoint">Add point</NButton>
+        <NButton @click="removePoint">Remove point</NButton>
+        <!-- <NButton @click="clearPoints">Clear points</NButton> -->
+        <NButton @click="resetPoints">Reset points</NButton>
+      </NFlex>
+      <NP></NP>
+      <NFlex v-for="point in points" :key="point.x">
+        <NFormItem label="x">
+          <NInputNumber v-model:value="point.x" step="0.1" />
+        </NFormItem>
+        <NFormItem label="y">
+          <NInputNumber v-model:value="point.y" step="0.1" />
+        </NFormItem>
+        <NFormItem label="yaw">
+          <NInputNumber v-model:value="point.yaw" step="0.1" />
+        </NFormItem>
+      </NFlex>
+      <NFlex>
+        <NButton @click="moveToPoint">Move to frist point</NButton>
+        <NButton @click="moveToPoints">Move to points</NButton>
+        <NButton @click="patrolPoints">Patrol points</NButton>
+        <NButton @click="stopNavigation">Stop navigation</NButton>
+      </NFlex>
+    </NForm>
+  </NCard>
+  <NCard v-else title="Navigation Panel">
+    <NH1>SLAM or Navigation not started</NH1>
+  </NCard>
 </template>

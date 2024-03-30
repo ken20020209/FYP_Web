@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
+import { useMessage } from 'naive-ui';
 import type { Controller } from '@/robot/Controller';
 
 // const { curController } = useConnectorStore();
+
+const message = useMessage();
 
 interface Props {
   controller: Controller;
@@ -28,6 +31,7 @@ onMounted(() => {
 
 const onAction = (action: string) => {
   // console.log(action);
+  message.info(`Action: ${action}`);
   curController?.action.actionList[action]();
 };
 
@@ -37,13 +41,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <NFlex>
-    <NVirtualList :items="actions" :item-size="10" item-resizable>
-      <template #default="{ item }">
-        <div :key="item">
-          <NButton type="info" @click="onAction(item)">{{ item }}</NButton>
-        </div>
-      </template>
-    </NVirtualList>
-  </NFlex>
+  <NCard title="Action">
+    <NFlex>
+      <!--
+ <NVirtualList :items="actions" :item-size="10">
+        <template #default="{ item }">
+          <div :key="item">
+            <NButton type="info" @click="onAction(item)">{{ item }}</NButton>
+          </div>
+        </template>
+      </NVirtualList>
+-->
+      <NButtonGroup>
+        <template v-for="item in actions" :key="item">
+          <NButton type="info" @click="onAction(item)">
+            {{ item }}
+          </NButton>
+        </template>
+      </NButtonGroup>
+    </NFlex>
+  </NCard>
 </template>

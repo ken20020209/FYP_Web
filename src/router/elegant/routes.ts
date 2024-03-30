@@ -340,16 +340,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'user',
-    path: '/user',
-    component: 'layout.base$view.user',
-    meta: {
-      title: 'user',
-      i18nKey: 'route.user',
-      icon: 'ic:round-person'
-    }
-  },
-  {
     name: 'user-center',
     path: '/user-center',
     component: 'layout.base$view.user-center',

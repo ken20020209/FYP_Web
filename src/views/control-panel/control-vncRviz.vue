@@ -11,6 +11,8 @@ const props = defineProps<Props>();
 const { controller } = props;
 const ip = controller.ip;
 const domainID = controller.domainID;
+const vncConnected = ref(false);
+const vncConnectMsg = ref('Connecting...');
 // console.log(url)
 
 const vncContainer = ref(null);
@@ -27,17 +29,23 @@ const init = () => {
 
   rfb.addEventListener('connect', () => {
     // eslint-disable-next-line no-console
-    console.log('Connected to VNC server');
+    // console.log('Connected to VNC server');
+    vncConnected.value = true;
   });
 
   rfb.addEventListener('disconnect', () => {
     // eslint-disable-next-line no-console
-    console.log('Disconnected from VNC server');
+    // console.log('Disconnected from VNC server');
+    vncConnected.value = false;
+    vncConnectMsg.value = 'Disconnected from VNC server';
   });
 
   rfb.addEventListener('credentialsrequired', () => {
     // rfb.sendCredentials({ password: yourVncPassword });
   });
+  // rfb.scaleViewport = true;
+  // rfb.clipViewport = true;
+  // rfb.resizeSession = true;
 };
 onMounted(() => {
   init();
@@ -45,7 +53,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div ref="vncContainer"></div>
-  </div>
+  <NCard title="Navigation View">
+    <div v-show="vncConnected" ref="vncContainer"></div>
+    <div v-show="!vncConnected">{{ vncConnectMsg }}</div>
+  </NCard>
 </template>
