@@ -68,7 +68,7 @@ function handleDropdown(key: DropdownKey) {
   if (key === 'logout') {
     logout();
   } else {
-    routerPushByKey(key);
+    routerPushByKey(key as any);
   }
 }
 </script>

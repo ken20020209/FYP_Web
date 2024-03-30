@@ -12,7 +12,7 @@ ARG version
 ENV COMMITID=$version
 
 RUN pnpm install
-RUN pnpm run build
+RUN pnpm build
 
 FROM nginx:alpine as prod
 
