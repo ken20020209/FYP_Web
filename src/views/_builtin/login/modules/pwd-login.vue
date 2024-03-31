@@ -58,8 +58,8 @@ const accounts = computed<Account[]>(() => [
   {
     key: 'admin',
     label: $t('page.login.pwdLogin.admin'),
-    userName: 'Admin',
-    password: '123456'
+    userName: 'admin',
+    password: '12345678'
   },
   {
     key: 'user',

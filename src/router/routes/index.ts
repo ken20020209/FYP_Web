@@ -32,7 +32,8 @@ const customRoutes: CustomRoute[] = [
       title: 'exception',
       i18nKey: 'route.exception',
       icon: 'ant-design:exception-outlined',
-      order: 7
+      order: 7,
+      hideInMenu: true
     },
     children: [
       {
@@ -42,7 +43,8 @@ const customRoutes: CustomRoute[] = [
         meta: {
           title: 'exception_403',
           i18nKey: 'route.exception_403',
-          icon: 'ic:baseline-block'
+          icon: 'ic:baseline-block',
+          hideInMenu: true
         }
       },
       {
@@ -52,7 +54,8 @@ const customRoutes: CustomRoute[] = [
         meta: {
           title: 'exception_404',
           i18nKey: 'route.exception_404',
-          icon: 'ic:baseline-web-asset-off'
+          icon: 'ic:baseline-web-asset-off',
+          hideInMenu: true
         }
       },
       {
@@ -62,7 +65,8 @@ const customRoutes: CustomRoute[] = [
         meta: {
           title: 'exception_500',
           i18nKey: 'route.exception_500',
-          icon: 'ic:baseline-wifi-off'
+          icon: 'ic:baseline-wifi-off',
+          hideInMenu: true
         }
       }
     ]
