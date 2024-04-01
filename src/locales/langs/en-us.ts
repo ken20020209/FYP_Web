@@ -167,7 +167,7 @@ const local: App.I18n.Schema = {
     exception_500: '500',
     record: 'Record',
     robot: 'Robot',
-    // user: 'User',
+    user: 'User',
     'control-panel': 'Control Panel'
   },
   page: {
@@ -176,6 +176,7 @@ const local: App.I18n.Schema = {
         loginOrRegister: 'Login / Register',
         userNamePlaceholder: 'Please enter user name',
         phonePlaceholder: 'Please enter phone number',
+        emailPlaceholder: 'Please enter email',
         codePlaceholder: 'Please enter verification code',
         passwordPlaceholder: 'Please enter password',
         confirmPasswordPlaceholder: 'Please enter password again',
@@ -184,7 +185,8 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {userName} !',
+        registerSuccess: 'Register successfully'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -323,6 +325,7 @@ const local: App.I18n.Schema = {
         userEmail: 'Email',
         userStatus: 'User Status',
         userRole: 'User Role',
+        userPermission: 'User Permission',
         form: {
           userName: 'Please enter user name',
           userGender: 'Please select gender',

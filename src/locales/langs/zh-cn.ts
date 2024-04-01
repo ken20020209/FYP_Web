@@ -166,7 +166,7 @@ const local: App.I18n.Schema = {
     exception_404: '404',
     exception_500: '500',
     record: '视频记录',
-    // user: '用户',
+    user: '用户',
     robot: '机器人',
     'control-panel': '控制面板'
   },
@@ -184,7 +184,9 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{userName} ！',
+        emailPlaceholder: '请输入邮箱',
+        registerSuccess: '注册成功'
       },
       pwdLogin: {
         title: '密码登录',
@@ -323,6 +325,7 @@ const local: App.I18n.Schema = {
         userEmail: '邮箱',
         userStatus: '用户状态',
         userRole: '用户角色',
+        userPermission: '用户权限',
         form: {
           userName: '请输入用户名',
           userGender: '请选择性别',

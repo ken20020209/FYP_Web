@@ -17,11 +17,13 @@ const { formRef, validate } = useNaiveForm();
 interface FormModel {
   userName: string;
   password: string;
+  rememberMe: boolean;
 }
 
 const model: FormModel = reactive({
-  userName: 'Soybean',
-  password: '123456'
+  userName: '',
+  password: '',
+  rememberMe: false
 });
 
 const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
@@ -30,7 +32,8 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
 
   return {
     userName: formRules.userName,
-    password: formRules.pwd
+    password: formRules.pwd,
+    rememberMe: []
   };
 });
 
@@ -89,7 +92,7 @@ async function handleAccountLogin(account: Account) {
     </NFormItem>
     <NSpace vertical :size="24">
       <div class="flex-y-center justify-between">
-        <NCheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
+        <NCheckbox v-model:checked="model.rememberMe">{{ $t('page.login.pwdLogin.rememberMe') }}</NCheckbox>
         <NButton quaternary @click="toggleLoginModule('reset-pwd')">
           {{ $t('page.login.pwdLogin.forgetPassword') }}
         </NButton>

@@ -353,6 +353,7 @@ declare namespace App {
             userNamePlaceholder: string;
             phonePlaceholder: string;
             codePlaceholder: string;
+            emailPlaceholder: string;
             passwordPlaceholder: string;
             confirmPasswordPlaceholder: string;
             codeLogin: string;
@@ -361,6 +362,7 @@ declare namespace App {
             validateSuccess: string;
             loginSuccess: string;
             welcomeBack: string;
+            registerSuccess: string;
           };
           pwdLogin: {
             title: string;
@@ -499,6 +501,7 @@ declare namespace App {
             userEmail: string;
             userStatus: string;
             userRole: string;
+            userPermission: string;
             form: {
               userName: string;
               userGender: string;

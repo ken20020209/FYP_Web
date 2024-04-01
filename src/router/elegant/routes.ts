@@ -42,7 +42,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.control-panel',
     meta: {
       title: 'control-panel',
-      i18nKey: 'route.control-panel'
+      i18nKey: 'route.control-panel',
+      icon: 'ic:round-dashboard'
     }
   },
   {
@@ -74,6 +75,16 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'robot',
       i18nKey: 'route.robot',
       icon: 'ic:round-android'
+    }
+  },
+  {
+    name: 'user',
+    path: '/user',
+    component: 'layout.base$view.user',
+    meta: {
+      title: 'user',
+      i18nKey: 'route.user',
+      icon: 'ic:round-person'
     }
   }
 ];

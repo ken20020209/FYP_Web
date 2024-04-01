@@ -1,0 +1,9 @@
+import { request } from '../request';
+
+export function fetchPermissions(params?: any) {
+  return request<Api.Permission[]>({ url: '/api/permission', method: 'GET', params });
+}
+
+export function editPermission(user_name: string, robot_ids: number[]) {
+  return request<Api.Permission>({ url: '/api/permission', method: 'PUT', data: { user_name, robot_ids } });
+}

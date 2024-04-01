@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import { useCountDown, useLoading } from '@sa/hooks';
 import { $t } from '@/locales';
-import { REG_PHONE } from '@/constants/reg';
+import { REG_EMAIL } from '@/constants/reg';
 
 export function useCaptcha() {
   const { loading, startLoading, endLoading } = useLoading();
@@ -25,13 +25,13 @@ export function useCaptcha() {
 
   function isPhoneValid(phone: string) {
     if (phone.trim() === '') {
-      window.$message?.error?.($t('form.phone.required'));
+      window.$message?.error?.($t('form.email.required'));
 
       return false;
     }
 
-    if (!REG_PHONE.test(phone)) {
-      window.$message?.error?.($t('form.phone.invalid'));
+    if (!REG_EMAIL.test(phone)) {
+      window.$message?.error?.($t('form.email.invalid'));
 
       return false;
     }

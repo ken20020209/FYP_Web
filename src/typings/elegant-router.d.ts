@@ -28,6 +28,7 @@ declare module "@elegant-router/types" {
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "record": "/record";
     "robot": "/robot";
+    "user": "/user";
   };
 
   /**
@@ -70,6 +71,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "record"
     | "robot"
+    | "user"
   >;
 
   /**
@@ -94,6 +96,7 @@ declare module "@elegant-router/types" {
     | "control-panel"
     | "record"
     | "robot"
+    | "user"
   >;
 
   /**

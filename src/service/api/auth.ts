@@ -16,6 +16,17 @@ export function fetchLogin(username: string, password: string) {
     }
   });
 }
+export function fetchRegister(username: string, password: string, email: string) {
+  return request<null>({
+    url: '/api/auth/register',
+    method: 'post',
+    data: {
+      username,
+      password,
+      email
+    }
+  });
+}
 
 /** Get user info */
 export function fetchGetUserInfo() {

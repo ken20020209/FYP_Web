@@ -15,5 +15,6 @@
   "prettier.enable": false,
   "unocss.root": ["./"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "vue.server.hybridMode": true
+  "vue.server.hybridMode": true,
+  "i18n-ally.sourceLanguage": "en-us"
 }

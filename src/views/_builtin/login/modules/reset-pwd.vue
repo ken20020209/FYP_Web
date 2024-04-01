@@ -3,16 +3,19 @@ import { computed, reactive } from 'vue';
 import { $t } from '@/locales';
 import { useRouterPush } from '@/hooks/common/router';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
+import { useCaptcha } from '@/hooks/business/captcha';
 
 defineOptions({
   name: 'ResetPwd'
 });
+const { label, isCounting, loading, getCaptcha } = useCaptcha();
 
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useNaiveForm();
 
 interface FormModel {
   phone: string;
+  email: string;
   code: string;
   password: string;
   confirmPassword: string;
@@ -20,6 +23,7 @@ interface FormModel {
 
 const model: FormModel = reactive({
   phone: '',
+  email: '',
   code: '',
   password: '',
   confirmPassword: ''
@@ -31,7 +35,9 @@ const rules = computed<RuleRecord>(() => {
   const { formRules, createConfirmPwdRule } = useFormRules();
 
   return {
-    phone: formRules.phone,
+    email: formRules.email,
+    // phone: formRules.phone,
+    code: formRules.code,
     password: formRules.pwd,
     confirmPassword: createConfirmPwdRule(model.password)
   };
@@ -46,11 +52,20 @@ async function handleSubmit() {
 
 <template>
   <NForm ref="formRef" :model="model" :rules="rules" size="large" :show-label="false">
-    <NFormItem path="phone">
+    <!--
+ <NFormItem path="phone">
       <NInput v-model:value="model.phone" :placeholder="$t('page.login.common.phonePlaceholder')" />
+    </NFormItem>
+-->
+    <NFormItem path="email">
+      <NInput v-model:value="model.email" :placeholder="$t('page.login.common.emailPlaceholder')" />
     </NFormItem>
     <NFormItem path="code">
       <NInput v-model:value="model.code" :placeholder="$t('page.login.common.codePlaceholder')" />
+      <!-- send email code -->
+      <NButton size="large" :disabled="isCounting" :loading="loading" @click="getCaptcha(model.email)">
+        {{ label }}
+      </NButton>
     </NFormItem>
     <NFormItem path="password">
       <NInput

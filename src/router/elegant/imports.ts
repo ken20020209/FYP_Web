@@ -22,4 +22,5 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   "control-panel": () => import("@/views/control-panel/index.vue"),
   record: () => import("@/views/record/index.vue"),
   robot: () => import("@/views/robot/index.vue"),
+  user: () => import("@/views/user/index.vue"),
 };
