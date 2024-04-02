@@ -47,7 +47,9 @@ declare namespace Api {
     datetime: string;
     name: string;
 
-    path?: string;
+    path_png?: string;
+    path_posegraph?: string;
+    path_posegraphData?: string;
 
     // relations
     robot?: Robot;

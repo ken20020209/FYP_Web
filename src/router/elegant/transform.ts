@@ -152,9 +152,9 @@ const routeMap: RouteMap = {
   "500": "/500",
   "control-panel": "/control-panel",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
-  "map": "/map",
   "record": "/record",
   "robot": "/robot",
+  "robot-map": "/robot-map",
   "user": "/user"
 };
 

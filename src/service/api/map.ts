@@ -11,3 +11,17 @@ export function fetchUpdateMap(id: number, name: string) {
 export function fetchDeleteMap(id: number) {
   return request<Api.Map>({ url: '/api/map', method: 'DELETE', data: { id } });
 }
+
+export function fetchCreateMap(name: string, map: FormData, robot_id: number) {
+  // form data
+  map.set('name', name);
+  map.set('robot_id', robot_id.toString());
+  return request<Api.Map>({
+    url: '/api/map',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    method: 'POST',
+    data: map
+  });
+}

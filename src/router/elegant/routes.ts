@@ -58,15 +58,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'map',
-    path: '/map',
-    component: 'layout.base$view.map',
-    meta: {
-      title: 'map',
-      i18nKey: 'route.map'
-    }
-  },
-  {
     name: 'record',
     path: '/record',
     component: 'layout.base$view.record',
@@ -84,6 +75,15 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'robot',
       i18nKey: 'route.robot',
       icon: 'ic:round-android'
+    }
+  },
+  {
+    name: 'robot-map',
+    path: '/robot-map',
+    component: 'layout.base$view.robot-map',
+    meta: {
+      title: 'robot-map',
+      i18nKey: 'route.robot-map'
     }
   },
   {

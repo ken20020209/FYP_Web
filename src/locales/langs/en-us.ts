@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'WatchDog'
+    title: 'Watch Dog'
   },
   common: {
     action: 'Action',
@@ -169,7 +169,7 @@ const local: App.I18n.Schema = {
     robot: 'Robot',
     user: 'User',
     'control-panel': 'Control Panel',
-    map: 'Map'
+    'robot-map': 'Map'
   },
   page: {
     login: {

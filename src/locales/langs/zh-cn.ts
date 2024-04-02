@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'Soybean 管理系统'
+    title: 'Watch Dog'
   },
   common: {
     action: '操作',
@@ -169,7 +169,7 @@ const local: App.I18n.Schema = {
     user: '用户',
     robot: '机器人',
     'control-panel': '控制面板',
-    map: '地图'
+    'robot-map': '地图'
   },
   page: {
     login: {
