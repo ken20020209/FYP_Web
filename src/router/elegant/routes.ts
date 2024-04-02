@@ -58,6 +58,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'map',
+    path: '/map',
+    component: 'layout.base$view.map',
+    meta: {
+      title: 'map',
+      i18nKey: 'route.map'
+    }
+  },
+  {
     name: 'record',
     path: '/record',
     component: 'layout.base$view.record',

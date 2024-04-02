@@ -168,7 +168,8 @@ const local: App.I18n.Schema = {
     record: 'Record',
     robot: 'Robot',
     user: 'User',
-    'control-panel': 'Control Panel'
+    'control-panel': 'Control Panel',
+    map: 'Map'
   },
   page: {
     login: {

@@ -26,6 +26,7 @@ declare module "@elegant-router/types" {
     "500": "/500";
     "control-panel": "/control-panel";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
+    "map": "/map";
     "record": "/record";
     "robot": "/robot";
     "user": "/user";
@@ -69,6 +70,7 @@ declare module "@elegant-router/types" {
     | "500"
     | "control-panel"
     | "login"
+    | "map"
     | "record"
     | "robot"
     | "user"
@@ -94,6 +96,7 @@ declare module "@elegant-router/types" {
     | "500"
     | "login"
     | "control-panel"
+    | "map"
     | "record"
     | "robot"
     | "user"
