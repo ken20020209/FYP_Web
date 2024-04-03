@@ -9,7 +9,7 @@ export const useConnectorStore = defineStore({
   id: 'connector',
   // controllers: [Controller],
   state: () => ({
-    connector: ref<Connector>(new Connector('localhost', '9090')),
+    connector: ref<Connector>(new Connector(import.meta.env.VITE_SERVICE_ROS_Connector_DNS, '9090')),
     controllers: ref<{ [robot_id: string]: Controller }>({}),
     curController: ref<Controller>(),
     robotList: ref<any>(),

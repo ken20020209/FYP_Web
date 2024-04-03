@@ -84,7 +84,7 @@ onMounted(() => {
         <NFormItem label="robot " path="roles">
           <NSelect v-model:value="robot_id" :options="robotOptions" placeholder="choose robot" />
         </NFormItem>
-        <NFormItem label="Upload png">
+        <NFormItem label="Upload record">
           <NUpload :custom-request="customRequestRecord">
             <NUploadDragger>
               <!-- eslint-disable-next-line vue/no-static-inline-styles -->
@@ -93,7 +93,7 @@ onMounted(() => {
                   <component :is="iconArchive" />
                 </NIcon>
               </div>
-              <NText>Drag to Upload map png</NText>
+              <NText>Drag to Upload record</NText>
             </NUploadDragger>
           </NUpload>
         </NFormItem>
