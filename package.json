@@ -61,6 +61,7 @@
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
     "roslib": "github:ken20020209/roslibjs#v2",
+    "video.js": "^8.10.0",
     "vue": "3.4.21",
     "vue-draggable-plus": "0.3.5",
     "vue-i18n": "9.10.2",

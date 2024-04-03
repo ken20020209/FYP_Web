@@ -38,6 +38,8 @@ declare namespace Api {
     datetime: string;
     name: string;
 
+    path?: string;
+
     // relations
     robot?: Robot;
   }

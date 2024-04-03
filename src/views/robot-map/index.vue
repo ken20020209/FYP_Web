@@ -10,6 +10,7 @@ const maps = ref<Api.Map[]>([]);
 const message = useMessage();
 const active = ref<boolean>(false);
 const uploadData = ref(new FormData());
+const new_name = ref<string>('');
 
 const getMaps = async () => {
   const { data } = await fetchMaps();
@@ -22,7 +23,6 @@ const formRules = {
 onMounted(() => {
   getMaps();
 });
-const new_name = ref<string>('');
 
 const handleDelete = async (id: number) => {
   const { error } = await fetchDeleteMap(id);
