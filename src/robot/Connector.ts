@@ -11,6 +11,7 @@ export interface msgGetRobotList {
 export class Connector {
   ros: ROSLIB.Ros;
   getDogListClient: ROSLIB.Service;
+  subDogList: ROSLIB.Topic;
   ip: string;
   port: string;
   constructor(ip: string, port: string) {
@@ -24,10 +25,21 @@ export class Connector {
       name: '/dog/list',
       serviceType: 'service/srv/GetDogList'
     });
+    this.subDogList = new ROSLIB.Topic({
+      ros: this.ros,
+      name: '/dog/list',
+      messageType: 'message/msg/DogList'
+    });
   }
   /** @param {(response) => void} callback */
   getDogList(callback: (msg: msgGetRobotList) => void) {
     const request = new ROSLIB.ServiceRequest({});
     this.getDogListClient.callService(request, callback);
+  }
+
+  addDogListListener(callback: (msg: msgGetRobotList) => void) {
+    this.subDogList.subscribe((msg: any) => {
+      callback(msg);
+    });
   }
 }

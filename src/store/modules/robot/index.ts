@@ -13,9 +13,11 @@ export const useConnectorStore = defineStore({
     controllers: ref<{ [robot_id: string]: Controller }>({}),
     curController: ref<Controller>(),
     robotList: ref<any>(),
-    timer: setInterval(() => {
+
+    // change to use subscribe instead of call service
+    timer: setTimeout(() => {
       const store = useConnectorStore();
-      store.getConnector.getDogList(msg => {
+      store.getConnector.addDogListListener(msg => {
         store.robotList = msg;
 
         // update controllers
