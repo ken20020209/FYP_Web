@@ -15,9 +15,20 @@ export class Camera {
       name: '/camera/enable',
       messageType: 'std_msgs/msg/Bool'
     });
+    this.camera_cur_enable = new ROSLIB.Topic({
+      ros: this.ros,
+      name: '/camera/enable/current',
+      messageType: 'std_msgs/msg/Bool'
+    });
+
     this.camera_setting = new ROSLIB.Topic({
       ros: this.ros,
       name: '/camera/setting',
+      messageType: 'std_msgs/msg/Int32'
+    });
+    this.camera_cur_setting = new ROSLIB.Topic({
+      ros: this.ros,
+      name: '/camera/setting/current',
       messageType: 'std_msgs/msg/Int32'
     });
   }
@@ -34,6 +45,12 @@ export class Camera {
     }
     this.camera_enable.publish(new ROSLIB.Message({ data: false }));
   }
+  getCameraStatus(index, callback) {
+    if (index !== 0) {
+      throw new Error('out of camera range');
+    }
+    this.camera_cur_enable.subscribe(callback);
+  }
   getCameraNum() {
     return this.cameraNum;
   }
@@ -42,6 +59,12 @@ export class Camera {
       throw new Error('out of camera range');
     }
     this.camera.subscribe(callback);
+  }
+  subCamSetting(index, callback) {
+    if (index !== 0) {
+      throw new Error('out of camera range');
+    }
+    this.camera_cur_setting.subscribe(callback);
   }
   unSubCamCapture(index) {
     if (index !== 0) {
@@ -57,7 +80,7 @@ export class Camera {
     if (index !== 0) {
       throw new Error('out of camera range');
     }
-    throw new Error('Not implemented');
+    // throw new Error('Not implemented');
     this.camera_setting.publish(new ROSLIB.Message({ data: affection }));
   }
 }

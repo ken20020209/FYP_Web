@@ -15,9 +15,11 @@ interface StreamEffect {
 }
 
 const streamEffects = ref<StreamEffect[]>([
-  { label: 'Effect 1', key: 'effect1' },
-  { label: 'Effect 2', key: 'effect2' },
-  { label: 'Effect 3', key: 'effect3' }
+  { label: 'none', key: '0' },
+  { label: 'detect', key: '1' },
+  { label: 'classify', key: '2' },
+  { label: 'pose', key: '3' },
+  { label: 'segment', key: '4' }
 ]);
 const curStreamEffect = ref<string>('effect1');
 
@@ -26,8 +28,12 @@ const cameraSwitch = ref<boolean>(false);
 const cameraLife = ref<number>(life);
 const cameraSwitchLoading = ref<boolean>(false);
 
+controller.camera.subCamSetting(0, (msg: { data: any }) => {
+  curStreamEffect.value = streamEffects.value[Number(msg.data)].label;
+});
 const handleSelectEffect = (key: string) => {
-  curStreamEffect.value = key;
+  // message.info(String(key));
+  controller.camera.changeEffect(0, Number(key));
 };
 const handleCameraSwitch = () => {
   cameraSwitchLoading.value = true;
@@ -37,14 +43,14 @@ const handleCameraSwitch = () => {
     controller.camera.enableCamera(0);
   }
 };
-const timer = setInterval(() => {
-  cameraLife.value -= 0.5;
-  if (cameraLife.value < 0) {
-    // cameraImage.value = '/favicon.svg';
-    cameraSwitch.value = false;
-    cameraSwitchLoading.value = false;
-  }
-}, 500);
+// const timer = setInterval(() => {
+//   cameraLife.value -= 0.5;
+//   if (cameraLife.value < 0) {
+//     // cameraImage.value = '/favicon.svg';
+//     cameraSwitch.value = false;
+//     cameraSwitchLoading.value = false;
+//   }
+// }, 500);
 onMounted(() => {
   controller?.camera.subCamCapture(0, (msg: { data: String }) => {
     cameraImage.value = `data:image/jpeg;base64,${msg.data}`;
@@ -52,13 +58,16 @@ onMounted(() => {
     cameraSwitch.value = true;
     cameraSwitchLoading.value = false;
   });
-
+  controller.camera.getCameraStatus(0, (msg: { data: any }) => {
+    cameraSwitch.value = msg.data;
+    cameraSwitchLoading.value = false;
+  });
   // controller.camera.enableCamera(0);
 });
 
 onUnmounted(() => {
   controller?.camera.unSubCamCapture(0);
-  clearInterval(timer);
+  // clearInterval(timer);
 });
 </script>
 
