@@ -28,7 +28,7 @@ const cameraSwitch = ref<boolean>(false);
 const cameraLife = ref<number>(life);
 const cameraSwitchLoading = ref<boolean>(false);
 
-controller.camera.subCamSetting(0, (msg: { data: any }) => {
+controller.camera.subCamSetting(0, (msg: { data: number }) => {
   curStreamEffect.value = streamEffects.value[Number(msg.data)].label;
 });
 const handleSelectEffect = (key: string) => {
@@ -58,7 +58,7 @@ onMounted(() => {
     cameraSwitch.value = true;
     cameraSwitchLoading.value = false;
   });
-  controller.camera.getCameraStatus(0, (msg: { data: any }) => {
+  controller.camera.getCameraStatus(0, (msg: { data: boolean }) => {
     cameraSwitch.value = msg.data;
     cameraSwitchLoading.value = false;
   });

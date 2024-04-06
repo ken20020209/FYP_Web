@@ -2,24 +2,27 @@
 /* eslint-disable guard-for-in */
 // import ROSLIB from 'roslib';
 
+import type ROSLIB from 'roslib';
+
 // this class group the dog controller
 // it will same same command to dog group
 // it not  work for navigation
 
 export class DogGroupFrontend {
-  dogControllerList = {};
-  constructor(ros) {
+  dogControllerList: any = {};
+  ros: ROSLIB.Ros;
+  constructor(ros: ROSLIB.Ros) {
     this.ros = ros;
   }
 
   // change : the addDog and remove dog may use another parameter (not use dogController)
-  addDog(dogController) {
+  addDog(dogController: { name: string }) {
     if (dogController.name in this.dogControllerList) {
       throw new Error('Dog name already exist');
     }
     this.dogControllerList[dogController.name] = dogController;
   }
-  removeDog(dogController) {
+  removeDog(dogController: { name: string }) {
     if (dogController.name in this.dogControllerList) {
       delete this.dogControllerList[dogController.name];
     }
@@ -50,39 +53,39 @@ export class DogGroupFrontend {
 
   action = { actionList: this.actionList };
   // action control
-  doAction(action) {
+  doAction(action: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].action.doAction(action);
     }
   }
 
   // movement control
-  move_forward(speed) {
+  move_forward(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.move_forward(speed);
     }
   }
-  move_backward(speed) {
+  move_backward(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.move_backward(speed);
     }
   }
-  move_left(speed) {
+  move_left(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.move_left(speed);
     }
   }
-  move_right(speed) {
+  move_right(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.move_right(speed);
     }
   }
-  turn_left(speed) {
+  turn_left(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.turn_left(speed);
     }
   }
-  turn_right(speed) {
+  turn_right(speed: number) {
     for (const key in this.dogControllerList) {
       this.dogControllerList[key].movement.turn_right(speed);
     }

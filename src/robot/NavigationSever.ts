@@ -2,7 +2,16 @@ import ROSLIB, { Pose, Service, Topic } from 'roslib';
 
 // basic nav2 simple commander api
 export class BasicNavigator {
-  constructor(ros, namespace = '') {
+  ros: ROSLIB.Ros;
+  namespace: string;
+  is_task_complete_topic: ROSLIB.Topic<ROSLIB.Message>;
+  feedback_topic: ROSLIB.Topic<ROSLIB.Message>;
+  moveToPoint_client: ROSLIB.Service<any, any>;
+  moveToPoints_client: ROSLIB.Service<any, any>;
+  partrolPoints_client: ROSLIB.Service<any, any>;
+  stopNavigation_client: ROSLIB.Service<any, any>;
+  followObject_client: ROSLIB.Service<any, any>;
+  constructor(ros: ROSLIB.Ros, namespace = '') {
     this.ros = ros;
     this.namespace = namespace;
 
@@ -47,7 +56,7 @@ export class BasicNavigator {
   }
   // craete 2d pose by x, y, and yaw
   // eslint-disable-next-line class-methods-use-this
-  createPose2D(x, y, yaw) {
+  createPose2D(x: number, y: number, yaw: number) {
     return new Pose({
       position: {
         x,
@@ -61,29 +70,29 @@ export class BasicNavigator {
   }
 
   // move to a single point
-  moveToPoint(pose, callback) {
+  moveToPoint(pose: ROSLIB.Pose, callback?: (msg: { result: string }) => void) {
     const request = new ROSLIB.ServiceRequest({
       pose
     });
-    this.moveToPoint_client.callService(request, callback);
+    this.moveToPoint_client.callService(request, callback as any);
   }
-  moveToPoints(poses, callback) {
+  moveToPoints(poses: ROSLIB.Pose[], callback?: (msg: { result: string }) => void) {
     const request = new ROSLIB.ServiceRequest({
       poses
     });
-    this.moveToPoints_client.callService(request, callback);
+    this.moveToPoints_client.callService(request, callback as any);
   }
-  patrolPoints(poses, callback) {
+  patrolPoints(poses: ROSLIB.Pose[], callback?: (msg: { result: string }) => void) {
     const request = new ROSLIB.ServiceRequest({
       poses
     });
-    this.partrolPoints_client.callService(request, callback);
+    this.partrolPoints_client.callService(request, callback as any);
   }
-  stopNavigation(callback) {
+  stopNavigation(callback?: (msg: { result: string }) => void) {
     const request = new ROSLIB.ServiceRequest({});
-    this.stopNavigation_client.callService(request, callback);
+    this.stopNavigation_client.callService(request, callback as any);
   }
-  followObject(object, callback) {
+  followObject(object: any, callback: any) {
     throw new Error('Method not implemented.');
     const request = new ROSLIB.ServiceRequest({
       object
@@ -91,12 +100,12 @@ export class BasicNavigator {
     this.followObject_client.callService(request, callback);
   }
   // feedback
-  onFeedback(callback) {
-    this.feedback_topic.subscribe(callback);
+  onFeedback(callback: { (msg: { data: string }): void }) {
+    this.feedback_topic.subscribe(callback as any);
   }
   // task complete
-  isTaskComplete(callback) {
-    this.is_task_complete_topic.subscribe(callback);
+  isTaskComplete(callback: { (msg: { data: boolean }): void }) {
+    this.is_task_complete_topic.subscribe(callback as any);
   }
   // cancel feedback
   cancelFeedback() {
