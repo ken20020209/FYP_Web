@@ -49,19 +49,23 @@ const createPoses2D = (ppoints: Pose2D[]) => {
   return poses;
 };
 const moveToPoint = () => {
+  window.$message?.info('Moving to first point');
   const pose = createPose2D(points.value[0]);
   navigation.moveToPoint(pose);
 };
 const moveToPoints = () => {
+  window.$message?.info('Moving to points');
   const poses = createPoses2D(points.value);
   // console.log(poses);
   navigation.moveToPoints(poses);
 };
 const patrolPoints = () => {
+  window.$message?.info('Patrolling points');
   const poses = createPoses2D(points.value);
   navigation.patrolPoints(poses);
 };
 const stopNavigation = () => {
+  window.$message?.info('Stopping navigation');
   navigation.stopNavigation();
 };
 const addPoint = () => {
@@ -90,6 +94,16 @@ const resetPoints = () => {
       yaw: 0
     }
   ];
+};
+const mapName = ref('');
+const saveMapIsLoading = ref(false);
+const handleSaveMap = async () => {
+  saveMapIsLoading.value = true;
+  window.$message?.success(`Saving map: ${mapName.value}`);
+  controller.mapping.saveMap(mapName.value, (msg: { result: any }) => {
+    window.$message?.info(msg.result);
+    saveMapIsLoading.value = false;
+  });
 };
 
 const start_stop_message = ref('none');
@@ -146,6 +160,13 @@ controller.slam_on_sub.subscribe((msg: any) => {
         <NButton @click="moveToPoints">Move to points</NButton>
         <NButton @click="patrolPoints">Patrol points</NButton>
         <NButton @click="stopNavigation">Stop navigation</NButton>
+      </NFlex>
+      <NP></NP>
+      <NFlex>
+        <NFormItem v-if="slam_on">
+          <NButton :loading="saveMapIsLoading" @click="handleSaveMap">Save Map</NButton>
+          <NInput v-model:value="mapName" placeholder="Map name"></NInput>
+        </NFormItem>
       </NFlex>
     </NForm>
   </NCard>

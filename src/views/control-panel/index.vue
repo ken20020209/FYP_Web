@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import type { Component, Ref } from 'vue';
+import { onMounted, onUnmounted, ref, shallowRef } from 'vue';
 import { useConnectorStore } from '@/store/modules/robot';
 import Movement from './control-movement.vue';
 import VncRviz from './control-vncRviz.vue';
@@ -14,7 +14,7 @@ const { curController } = useConnectorStore();
 // declare all components allow user to eable/disable components
 interface ComponentSwitch {
   component: Component;
-  enable: boolean;
+  enable: Ref<boolean>;
 }
 // interface SplitLayout {
 //   left: Component | SplitLayout | undefined;
@@ -26,15 +26,15 @@ interface ComponentSwitch {
 //   right: { component: VncRviz },
 //   vertical: false
 // });
-const componentsSwitch = ref<{
+const componentsSwitch = shallowRef<{
   [key: string]: ComponentSwitch;
 }>({
-  Movement: { component: Movement, enable: true },
-  VncRviz: { component: VncRviz, enable: false },
-  Action: { component: Action, enable: true },
-  Camera: { component: Camera, enable: true },
-  NavigationSwitch: { component: NavigationSwitch, enable: false },
-  NavigationPanel: { component: NavigationPanel, enable: false }
+  Movement: { component: Movement, enable: ref(true) },
+  VncRviz: { component: VncRviz, enable: ref(false) },
+  Action: { component: Action, enable: ref(true) },
+  Camera: { component: Camera, enable: ref(true) },
+  NavigationSwitch: { component: NavigationSwitch, enable: ref(false) },
+  NavigationPanel: { component: NavigationPanel, enable: ref(false) }
 });
 
 const viewDrawer = ref(false);
@@ -60,7 +60,7 @@ onUnmounted(() => {});
         <template #default>
           <NGrid :cols="3">
             <NGridItem v-for="(component, key) in componentsSwitch" :key="key">
-              <NCheckbox v-model:checked="component.enable">{{ key }}</NCheckbox>
+              <NCheckbox v-model:checked="component.enable.value">{{ key }}</NCheckbox>
             </NGridItem>
           </NGrid>
         </template>
@@ -72,7 +72,7 @@ onUnmounted(() => {});
 
     <!-- render component use componetsSwitch -->
     <template v-for="(component, key) in componentsSwitch">
-      <component :is="component.component" v-if="component.enable" :key="key" :controller="curController" />
+      <component :is="component.component" v-if="component.enable.value" :key="key" :controller="curController" />
     </template>
 
     <!--

@@ -3,6 +3,7 @@ import { Movement } from './Movement';
 import { Camera } from './Camera';
 import { Action } from './Action';
 import { BasicNavigator } from './NavigationSever';
+import { Mapping } from './Mapping';
 
 interface msgSwitchService {
   result: string;
@@ -22,6 +23,7 @@ export class Controller {
   camera: Camera;
   action: Action;
   navigation: BasicNavigator;
+  mapping: Mapping;
 
   navigation_on: boolean;
   slam_on: boolean;
@@ -53,6 +55,7 @@ export class Controller {
     this.camera = new Camera(this.ros);
     this.action = new Action(this.ros);
     this.navigation = new BasicNavigator(this.ros);
+    this.mapping = new Mapping(this.ros);
 
     this.navigation_on = false;
     this.slam_on = false;
@@ -97,21 +100,22 @@ export class Controller {
    * @function setNavigation
    * @param {boolean} status - Status of the navigation
    */
-  setNavigation(status: Boolean) {
+  setNavigation(status: Boolean, mapName?: string) {
     // console.log(typeof(status)==typeof(Boolean()));
     // if (typeof status !== typeof Boolean()) {
     //   throw new TypeError('Invalid status type it should boolean');
     // }
     const request = new ROSLIB.ServiceRequest({
-      switch_service: status
+      switch_service: status,
+      map: mapName
     });
     this.navigation_switch_service.callService(request, this.setNavigationCallback);
   }
   setNavigationCallback(msg: msgSwitchService) {
     console.log(`${this}Navigation status set to: ${msg.result}`);
   }
-  startNavigation() {
-    this.setNavigation(true);
+  startNavigation(mapName?: string) {
+    this.setNavigation(true, mapName);
   }
   stopNavigation() {
     this.setNavigation(false);
