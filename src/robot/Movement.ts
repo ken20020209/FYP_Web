@@ -41,7 +41,7 @@ export class Movement {
     this.linear.x = speed;
     this.cmd_vel_publish();
   }
-  move_backward(speed: number = 0.5) {
+  move_backward(speed: number = -0.5) {
     this.linear.x = speed;
     this.cmd_vel_publish();
   }
@@ -49,7 +49,7 @@ export class Movement {
     this.linear.y = speed;
     this.cmd_vel_publish();
   }
-  move_right(speed: number = 0.5) {
+  move_right(speed: number = -0.5) {
     this.linear.y = speed;
     this.cmd_vel_publish();
   }
@@ -57,7 +57,7 @@ export class Movement {
     this.angular.z = speed;
     this.cmd_vel_publish();
   }
-  turn_right(speed: number = 0.5) {
+  turn_right(speed: number = -0.5) {
     this.angular.z = speed;
     this.cmd_vel_publish();
   }
