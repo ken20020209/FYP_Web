@@ -131,7 +131,7 @@ const customRequestPosegraphData = ({ file }: UploadCustomRequestOptions) => {
             <NInput v-model:value="new_name" placeholder="Please input name" />
           </NFormItem>
           <NFormItem label="Upload png">
-            <NUpload :custom-request="customRequestPng">
+            <NUpload :custom-request="customRequestPng" :max="1">
               <NUploadDragger>
                 <!-- eslint-disable-next-line vue/no-static-inline-styles -->
                 <div style="margin-bottom: 12px">
@@ -144,7 +144,7 @@ const customRequestPosegraphData = ({ file }: UploadCustomRequestOptions) => {
             </NUpload>
           </NFormItem>
           <NFormItem label="Upload posegraph">
-            <NUpload :custom-request="customRequestPosegraph">
+            <NUpload :custom-request="customRequestPosegraph" :max="1">
               <NUploadDragger>
                 <!-- eslint-disable-next-line vue/no-static-inline-styles -->
                 <div style="margin-bottom: 12px">
