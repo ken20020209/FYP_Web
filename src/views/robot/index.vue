@@ -3,8 +3,12 @@ import { computed, onMounted, ref } from 'vue';
 import { useConnectorStore } from '@/store/modules/robot';
 import { fetchAddRobot, fetchRobots } from '@/service/api';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
+import { useAuth } from '@/hooks/business/auth';
 import RobotCardOn from './robotCardOn.vue';
 import RobotCardOff from './robotCardOff.vue';
+const { hasAuth } = useAuth();
+
+const hasPermission = () => hasAuth(['admin', 'manager']);
 
 // useConnectorStore();
 
@@ -78,7 +82,7 @@ onMounted(() => {
     <NCard>
       <template #header-extra>
         <NFlex vertical>
-          <NSwitch v-model:value="robotSwitch" size="large">
+          <NSwitch v-if="hasPermission()" v-model:value="robotSwitch" size="large">
             <template #checked>Online</template>
             <template #unchecked>Offline</template>
           </NSwitch>

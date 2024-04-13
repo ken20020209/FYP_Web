@@ -11,20 +11,21 @@ const props = defineProps<Props>();
 const { controller } = props;
 
 const navigation = controller.navigation;
-
+const isLoading = ref(false);
 const isTaskCompleted = ref(false);
+const start_stop_message = ref('none');
+const navi_on = ref(false);
+const slam_on = ref(false);
 const feedback = ref('');
+
 navigation.isTaskComplete((msg: { data: boolean }) => {
+  isLoading.value = false;
   isTaskCompleted.value = msg.data;
 });
 navigation.onFeedback((msg: { data: string }) => {
   feedback.value = msg.data;
 });
 
-const start_stop_message = ref('none');
-const navi_on = ref(false);
-const slam_on = ref(false);
-const isLoading = ref(false);
 controller.setNavigationCallback = (msg: { result: string }) => {
   start_stop_message.value = msg.result;
   isLoading.value = false;
@@ -61,6 +62,7 @@ const handleNaviSwitch = async () => {
     const { data } = await fetchMaps();
     if (!data) {
       window.$message?.error('No map available');
+      isLoading.value = false;
       return;
     }
     let isValid = false;

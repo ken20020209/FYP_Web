@@ -1,5 +1,9 @@
 import { request } from '../request';
 
+/**
+ * @param params:{robot_id:number,user_id:number}
+ * @returns
+ */
 export function fetchPermissions(params?: any) {
   return request<Api.Permission[]>({ url: '/api/permission', method: 'GET', params });
 }

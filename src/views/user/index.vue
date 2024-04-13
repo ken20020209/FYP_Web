@@ -8,8 +8,13 @@ import { fetchDeleteUser, fetchPermissions, fetchRobots, fetchUsers } from '@/se
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 import { useTableOperate } from '@/hooks/common/table';
+import { useAuth } from '@/hooks/business/auth';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 // import UserSearch from './modules/user-search.vue';
+
+const { hasAuth } = useAuth();
+
+const hasPermission = () => hasAuth(['admin']);
 
 const appStore = useAppStore();
 // const users = ref([]);
@@ -19,7 +24,14 @@ const robotData = ref<Api.Robot[]>([] as Api.Robot[]);
 const getData = async (params: any) => {
   loading.value = true;
   const res = await fetchUsers(params);
-  data.value = res.data as Api.User[];
+  // data.value = res.data as Api.User[];
+  data.value = [];
+  res?.data?.forEach((item: Api.User) => {
+    if (item.roles.includes('admin')) return;
+    if (['manager'].some(role => role.includes(item.roles[0])) && !hasPermission()) return;
+    data.value.push(item);
+  });
+
   robotData.value = (await fetchRobots()).data as Api.Robot[];
   await data.value.forEach(async item => {
     item.permissions = (await fetchPermissions({ user_id: item.id })).data as Api.Permission[];

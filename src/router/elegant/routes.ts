@@ -64,7 +64,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'record',
       i18nKey: 'route.record',
-      icon: 'ic:round-videocam'
+      icon: 'ic:round-videocam',
+      roles: ['admin', 'manager']
     }
   },
   {
@@ -83,7 +84,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.robot-map',
     meta: {
       title: 'robot-map',
-      i18nKey: 'route.robot-map'
+      i18nKey: 'route.robot-map',
+      icon: 'ic:round-map'
     }
   },
   {
@@ -93,7 +95,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'user',
       i18nKey: 'route.user',
-      icon: 'ic:round-person'
+      icon: 'ic:round-person',
+      roles: ['admin', 'manager']
     }
   }
 ];

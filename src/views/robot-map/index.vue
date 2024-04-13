@@ -3,8 +3,13 @@ import { onMounted, ref } from 'vue';
 import { useMessage } from 'naive-ui';
 import type { UploadCustomRequestOptions } from 'naive-ui';
 import { fetchCreateMap, fetchDeleteMap, fetchMaps, fetchUpdateMap } from '@/service/api';
+import { useAuth } from '@/hooks/business/auth';
 
 import iconArchive from '~icons/mdi/archive';
+
+const { hasAuth } = useAuth();
+
+const hasPermission = () => hasAuth(['admin', 'manager']);
 
 const maps = ref<Api.Map[]>([]);
 const message = useMessage();
@@ -93,7 +98,7 @@ const customRequestPosegraphData = ({ file }: UploadCustomRequestOptions) => {
   <NCard>
     <template #header>Map List</template>
     <template #header-extra>
-      <NButton type="success" ghost @click="handleAdd">Add</NButton>
+      <NButton v-if="hasPermission()" type="success" ghost @click="handleAdd">Add</NButton>
     </template>
     <NGrid :x-gap="24" :cols="4" item-responsive responsive="screen">
       <template v-for="item in maps" :key="item.name">
@@ -105,7 +110,7 @@ const customRequestPosegraphData = ({ file }: UploadCustomRequestOptions) => {
 
             <NImage :src="item?.path_png" />
             <template #action>
-              <NFlex justify="end">
+              <NFlex v-if="hasPermission()" justify="end">
                 <NPopconfirm @positive-click="handleEdit(item.id)">
                   <template #trigger>
                     <NButton type="primary" ghost @click="new_name = ''">Edit</NButton>
@@ -124,7 +129,7 @@ const customRequestPosegraphData = ({ file }: UploadCustomRequestOptions) => {
         </NGridItem>
       </template>
     </NGrid>
-    <NDrawer v-model:show="active" :width="502" placement="right" multiple>
+    <NDrawer v-if="hasPermission()" v-model:show="active" :width="502" placement="right" multiple>
       <NDrawerContent title="Add Map">
         <NForm label-placement="top" :rules="formRules">
           <NFormItem label="Name">

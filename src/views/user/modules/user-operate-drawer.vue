@@ -5,6 +5,11 @@ import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { editPermission, fetchAddUser, fetchRobots, fetchUpdateUser } from '@/service/api';
 import { $t } from '@/locales';
 // import { enableStatusOptions, userGenderOptions } from '@/constants/business';
+import { useAuth } from '@/hooks/business/auth';
+
+const { hasAuth } = useAuth();
+
+const hasPermission = () => hasAuth(['admin']);
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -101,11 +106,13 @@ async function getRoleOptions() {
   //   roleOptions.value = [...userRoleOptions, ...options];
   // }
   roleOptions.value = [
-    { label: 'admin', value: 'admin' },
     { label: 'user', value: 'user' },
-    { label: 'manager', value: 'manager' },
     { label: 'robot', value: 'robot' }
   ];
+  if (hasPermission()) {
+    roleOptions.value.push({ label: 'manager', value: 'manager' });
+    // roleOptions.value.push({ label: 'admin', value: 'admin' });
+  }
 }
 async function getPermisionOptions() {
   const { error, data } = await fetchRobots();

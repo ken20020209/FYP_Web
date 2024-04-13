@@ -8,6 +8,7 @@ import Action from './control-action.vue';
 import Camera from './control-camera.vue';
 import NavigationSwitch from './control-navigation-switch.vue';
 import NavigationPanel from './control-navigation-panel.vue';
+import ControlVoiceControl from './control-voice-control.vue';
 
 const { curController } = useConnectorStore();
 
@@ -34,7 +35,8 @@ const componentsSwitch = shallowRef<{
   Action: { component: Action, enable: ref(true) },
   Camera: { component: Camera, enable: ref(true) },
   NavigationSwitch: { component: NavigationSwitch, enable: ref(false) },
-  NavigationPanel: { component: NavigationPanel, enable: ref(false) }
+  NavigationPanel: { component: NavigationPanel, enable: ref(false) },
+  ControlVoiceControl: { component: ControlVoiceControl, enable: ref(true) }
 });
 
 const viewDrawer = ref(false);

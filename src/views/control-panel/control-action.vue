@@ -52,13 +52,13 @@ onUnmounted(() => {
         </template>
       </NVirtualList>
 -->
-      <NButtonGroup>
-        <template v-for="item in actions" :key="item">
-          <NButton type="info" @click="onAction(item)">
-            {{ item }}
-          </NButton>
-        </template>
-      </NButtonGroup>
+      <!-- <NButtonGroup> -->
+      <template v-for="item in actions" :key="item">
+        <NButton type="info" @click="onAction(item)">
+          {{ item }}
+        </NButton>
+      </template>
+      <!-- </NButtonGroup> -->
     </NFlex>
   </NCard>
 </template>
