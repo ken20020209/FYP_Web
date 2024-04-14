@@ -150,7 +150,11 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
     }
   `;
 
-  const style = document.createElement('style');
+  const styleId = 'theme-vars';
+
+  const style = document.querySelector(`#${styleId}`) || document.createElement('style');
+
+  style.id = styleId;
 
   style.textContent = css + darkCss;
 
@@ -230,6 +234,9 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor) {
     },
     LoadingBar: {
       colorLoading
+    },
+    Tag: {
+      borderRadius: '6px'
     }
   };
 

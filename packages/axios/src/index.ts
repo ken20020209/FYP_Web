@@ -127,6 +127,7 @@ export function createRequest<ResponseData = any, State = Record<string, unknown
 
   request.cancelRequest = cancelRequest;
   request.cancelAllRequest = cancelAllRequest;
+  request.state = {} as State;
 
   return request;
 }
@@ -145,9 +146,10 @@ export function createFlatRequest<ResponseData = any, State = Record<string, unk
 ) {
   const { instance, opts, cancelRequest, cancelAllRequest } = createCommonRequest<ResponseData>(axiosConfig, options);
 
-  const flatRequest: FlatRequestInstance<State> = async function flatRequest<T = any, R extends ResponseType = 'json'>(
-    config: CustomAxiosRequestConfig
-  ) {
+  const flatRequest: FlatRequestInstance<State, ResponseData> = async function flatRequest<
+    T = any,
+    R extends ResponseType = 'json'
+  >(config: CustomAxiosRequestConfig) {
     try {
       const response: AxiosResponse<ResponseData> = await instance(config);
 
@@ -163,7 +165,7 @@ export function createFlatRequest<ResponseData = any, State = Record<string, unk
     } catch (error) {
       return { data: null, error };
     }
-  } as FlatRequestInstance<State>;
+  } as FlatRequestInstance<State, ResponseData>;
 
   flatRequest.cancelRequest = cancelRequest;
   flatRequest.cancelAllRequest = cancelAllRequest;
