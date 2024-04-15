@@ -20,12 +20,13 @@ const init = () => {
   // const vncContainer = $refs.vncContainer;
   const offset = domainID;
   const novncPort = 6080 + offset;
-  const yourVncServerUrl = `${ip}:${novncPort}`;
+  // const yourVncServerUrl = `${ip}:${novncPort}`;
 
   // no need password
   // const yourVncPassword = "123456"
 
-  const rfb = new RFB(vncContainer.value as any, `ws://${yourVncServerUrl}`);
+  const server = import.meta.env.VITE_SERVICE_BASE_URL.replace('https://', '');
+  const rfb = new RFB(vncContainer.value as any, `wss://${server}/wss/?ip=${ip}&port=${novncPort}`);
 
   rfb.addEventListener('connect', () => {
     // eslint-disable-next-line no-console

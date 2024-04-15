@@ -17,8 +17,9 @@ export class Connector {
   constructor(ip: string, port: string) {
     this.ip = ip;
     this.port = port;
+    const server = import.meta.env.VITE_SERVICE_BASE_URL.replace('https://', '');
     this.ros = new ROSLIB.Ros({
-      url: `ws://${ip}:${port}`
+      url: `wss://${server}/wss/?ip=${ip}&port=${port}`
     });
     this.getDogListClient = new ROSLIB.Service({
       ros: this.ros,

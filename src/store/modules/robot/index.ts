@@ -1,18 +1,21 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useMessage } from 'naive-ui';
 import { Controller } from '@/robot/Controller';
-import type { msgGetRobotList } from '@/robot/Connector';
 import { Connector } from '@/robot/Connector';
+import type { msgGetRobotList } from '@/robot/Connector';
 import { fetchPermissions, fetchRobots } from '@/service/api';
 import { useAuth } from '@/hooks/business/auth';
+import { fetchRosips } from '@/service/api/rosip';
 import { useAuthStore } from '../auth';
 
+const message = useMessage();
 // connector store
 export const useConnectorStore = defineStore({
   id: 'connector',
   // controllers: [Controller],
   state: () => ({
-    connector: ref<Connector>(new Connector(import.meta.env.VITE_SERVICE_ROS_Connector_DNS, '9090')),
+    connectors: ref<Connector[]>([]),
     controllers: ref<{ [robot_id: string]: Controller }>({}),
     permission: ref<Api.Permission[]>([]),
     curController: ref<Controller>(),
@@ -21,52 +24,76 @@ export const useConnectorStore = defineStore({
     // change to use subscribe instead of call service
     timer: setTimeout(() => {
       const store = useConnectorStore();
-      let permission = store.getPermission;
-      const { hasAuth } = useAuth();
 
-      const hasPermission = () => hasAuth(['admin', 'manager']);
+      const pushConnector = (ip: string) => {
+        store.getConnectors.push(new Connector(ip, '9090'));
+        // console.log(ip);
 
-      store.getConnector.addDogListListener(msg => {
-        permission = store.permission;
-        // console.log(permission);
-        store.robotList = msg;
-        // update controllers
-        for (let i = 0; i < msg.dog_ids.length; i += 1) {
-          let isValid = false;
-          permission.forEach(p => {
-            if (p.robot?.name === msg.dog_ids[i]) {
-              isValid = true;
+        let permission = store.getPermission;
+        const { hasAuth } = useAuth();
+
+        const hasPermission = () => hasAuth(['admin', 'manager']);
+
+        store.getConnectors.forEach(connector =>
+          connector.addDogListListener(msg => {
+            permission = store.permission;
+            // console.log(permission);
+            store.robotList = msg;
+            // update controllers
+            for (let i = 0; i < msg.dog_ids.length; i += 1) {
+              let isValid = false;
+              permission.forEach(p => {
+                if (p.robot?.name === msg.dog_ids[i]) {
+                  isValid = true;
+                }
+              });
+              // eslint-disable-next-line no-continue
+              if (!isValid && !hasPermission()) continue;
+              if (!(msg.dog_ids[i] + ip in store.controllers)) {
+                store.controllers[msg.dog_ids[i] + ip] = new Controller(
+                  connector.ip,
+                  msg.ports[i].toString(),
+                  msg.dog_ids[i],
+                  msg.domain_ids[i].toString(),
+                  msg.types[i]
+                );
+                if (store.curController === undefined) store.curController = store.controllers[msg.dog_ids[i] + ip];
+              } else {
+                store.controllers[msg.dog_ids[i] + ip].battery = msg.batterys[i];
+              }
             }
-          });
-          // eslint-disable-next-line no-continue
-          if (!isValid && !hasPermission()) continue;
-          if (!(msg.dog_ids[i] in store.controllers)) {
-            store.controllers[msg.dog_ids[i]] = new Controller(
-              store.connector.ip,
-              msg.ports[i].toString(),
-              msg.dog_ids[i],
-              msg.domain_ids[i].toString(),
-              msg.types[i]
-            );
-            if (store.curController === undefined) store.curController = store.controllers[msg.dog_ids[i]];
-          } else {
-            store.controllers[msg.dog_ids[i]].battery = msg.batterys[i];
-          }
-        }
 
-        // remove controllers
-        for (const key in store.controllers) {
-          if (!msg.dog_ids.includes(key)) {
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete store.controllers[key];
-          }
-        }
-      });
+            // remove controllers
+            // eslint-disable-next-line guard-for-in
+            for (const key in store.controllers) {
+              for (let i = 0; i < msg.dog_ids.length; i += 1) {
+                if (key === msg.dog_ids[i] + ip) {
+                  break;
+                }
+                if (i === msg.dog_ids.length - 1) {
+                  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                  delete store.controllers[key];
+                }
+              }
+            }
+          })
+        );
+      };
+
+      fetchRosips()
+        .then(res => {
+          res.data?.ips.forEach((ip: string) => {
+            pushConnector(ip);
+          });
+        })
+        .catch(err => {
+          message.error(err);
+        });
     }, 1000)
   }),
   getters: {
-    getConnector(): Connector {
-      return this.connector;
+    getConnectors(): Connector[] {
+      return this.connectors;
     },
     getRobotList(): msgGetRobotList {
       return this.robotList;

@@ -43,7 +43,8 @@ export class Controller {
   ) {
     this.name = name;
     this.namespace = '';
-    this.ros = new ROSLIB.Ros({ url: `ws://${ip}:${port}` });
+    const server = import.meta.env.VITE_SERVICE_BASE_URL.replace('https://', '');
+    this.ros = new ROSLIB.Ros({ url: `wss://${server}/wss/?ip=${ip}&port=${port}` });
     this.ip = ip;
     this.port = port;
     this.domainID = Number.parseInt(domainID, 10);
