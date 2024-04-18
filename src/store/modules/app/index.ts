@@ -44,7 +44,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     setReloadFlag(true);
   }
 
-  const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
+  const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'en-US');
 
   const localeOptions: App.I18n.LangOption[] = [
     {

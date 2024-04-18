@@ -39,8 +39,8 @@ export default defineConfig(configEnv => {
         cachedChecks: false
       },
       https: {
-        key: fs.readFileSync('ssl/PRIVATEKEY.key'),
-        cert: fs.readFileSync('ssl/cert.csr'),
+        key: fs.readFileSync('ssl/key.key'),
+        cert: fs.readFileSync('ssl/cert.pem'),
         passphrase: fs.readFileSync('ssl/password.txt', 'utf-8')
       }
     },

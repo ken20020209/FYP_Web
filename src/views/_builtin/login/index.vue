@@ -48,16 +48,21 @@ const bgColor = computed(() => {
 
   return mixColor(COLOR_WHITE, themeStore.themeColor, ratio);
 });
+
+const goBackIndex = () => {
+  window.location.href = '/';
+};
 </script>
 
 <template>
   <div class="relative size-full flex-center overflow-hidden" :style="{ backgroundColor: bgColor }">
     <WaveBg :theme-color="bgThemeColor" />
+
     <NCard :bordered="false" class="relative z-4 w-auto rd-12px">
       <div class="w-400px lt-sm:w-300px">
         <header class="flex-y-center justify-between">
-          <SystemLogo class="text-64px text-primary lt-sm:text-48px" />
-          <h3 class="text-28px text-primary font-500 lt-sm:text-22px">{{ $t('system.title') }}</h3>
+          <SystemLogo class="text-64px text-primary lt-sm:text-48px" @click="goBackIndex" />
+          <h3 class="text-28px text-primary font-500 lt-sm:text-22px" @click="goBackIndex">{{ $t('system.title') }}</h3>
           <div class="i-flex-col">
             <ThemeSchemaSwitch
               :theme-schema="themeStore.themeScheme"

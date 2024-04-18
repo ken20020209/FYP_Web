@@ -2,25 +2,27 @@
 /* eslint-disable guard-for-in */
 // import ROSLIB from 'roslib';
 
-import type ROSLIB from 'roslib';
+import type { Controller } from './Controller';
 
 // this class group the dog controller
 // it will same same command to dog group
 // it not  work for navigation
 
 export class DogGroupFrontend {
-  dogControllerList: any = {};
-  ros: ROSLIB.Ros;
-  constructor(ros: ROSLIB.Ros) {
-    this.ros = ros;
+  dogControllerList: { [name: string]: Controller } = {};
+  constructor() {
+    this.dogControllerList = {};
   }
 
   // change : the addDog and remove dog may use another parameter (not use dogController)
-  addDog(dogController: { name: string }) {
+  addDog(dogController: Controller) {
     if (dogController.name in this.dogControllerList) {
       throw new Error('Dog name already exist');
     }
     this.dogControllerList[dogController.name] = dogController;
+  }
+  clear() {
+    this.dogControllerList = {};
   }
   removeDog(dogController: { name: string }) {
     if (dogController.name in this.dogControllerList) {
