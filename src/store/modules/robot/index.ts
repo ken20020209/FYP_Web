@@ -49,17 +49,17 @@ export const useConnectorStore = defineStore({
               });
               // eslint-disable-next-line no-continue
               if (!isValid && !hasPermission()) continue;
-              if (!(msg.dog_ids[i] + ip in store.controllers)) {
-                store.controllers[msg.dog_ids[i] + ip] = new Controller(
+              if (!(msg.dog_ids[i] in store.controllers)) {
+                store.controllers[msg.dog_ids[i]] = new Controller(
                   connector.ip,
                   msg.ports[i].toString(),
                   msg.dog_ids[i],
                   msg.domain_ids[i].toString(),
                   msg.types[i]
                 );
-                if (store.curController === undefined) store.curController = store.controllers[msg.dog_ids[i] + ip];
+                if (store.curController === undefined) store.curController = store.controllers[msg.dog_ids[i]];
               } else {
-                store.controllers[msg.dog_ids[i] + ip].battery = msg.batterys[i];
+                store.controllers[msg.dog_ids[i]].battery = msg.batterys[i];
               }
             }
 
@@ -67,12 +67,12 @@ export const useConnectorStore = defineStore({
             // eslint-disable-next-line guard-for-in
             for (const key in store.controllers) {
               for (let i = 0; i < msg.dog_ids.length; i += 1) {
-                if (key === msg.dog_ids[i] + ip) {
+                if (key === msg.dog_ids[i]) {
                   break;
                 }
                 if (i === msg.dog_ids.length - 1) {
                   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                  delete store.controllers[key];
+                  if (store.controllers[key].ip === connector.ip) delete store.controllers[key];
                 }
               }
             }

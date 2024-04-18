@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { URL, fileURLToPath } from 'node:url';
+import fs from 'node:fs';
 import { defineConfig, loadEnv } from 'vite';
 import dayjs from 'dayjs';
 import { setupVitePlugins } from './build/plugins';
@@ -36,6 +37,11 @@ export default defineConfig(configEnv => {
       proxy: createViteProxy(viteEnv, configEnv.command === 'serve'),
       fs: {
         cachedChecks: false
+      },
+      https: {
+        key: fs.readFileSync('ssl/PRIVATEKEY.key'),
+        cert: fs.readFileSync('ssl/cert.csr'),
+        passphrase: fs.readFileSync('ssl/password.txt', 'utf-8')
       }
     },
     preview: {
