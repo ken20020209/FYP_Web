@@ -69,7 +69,7 @@ export class DogGroupFrontend {
   }
   move_backward(speed: number) {
     for (const key in this.dogControllerList) {
-      this.dogControllerList[key].movement.move_backward(speed);
+      this.dogControllerList[key].movement.move_backward(-speed);
     }
   }
   move_left(speed: number) {
@@ -79,7 +79,7 @@ export class DogGroupFrontend {
   }
   move_right(speed: number) {
     for (const key in this.dogControllerList) {
-      this.dogControllerList[key].movement.move_right(speed);
+      this.dogControllerList[key].movement.move_right(-speed);
     }
   }
   turn_left(speed: number) {
@@ -89,7 +89,7 @@ export class DogGroupFrontend {
   }
   turn_right(speed: number) {
     for (const key in this.dogControllerList) {
-      this.dogControllerList[key].movement.turn_right(speed);
+      this.dogControllerList[key].movement.turn_right(-speed);
     }
   }
   stop() {
