@@ -6,8 +6,8 @@ import { getServiceBaseURL } from '@/utils/service';
 import { $t } from '@/locales';
 import { handleRefreshToken } from './shared';
 
-// const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
-const isHttpProxy= true;
+const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
+// const isHttpProxy= true;
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
 interface InstanceState {

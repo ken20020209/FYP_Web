@@ -66,14 +66,16 @@ export const useConnectorStore = defineStore({
             // remove controllers
             // eslint-disable-next-line guard-for-in
             for (const key in store.controllers) {
+              let isValid = true;
               for (let i = 0; i < msg.dog_ids.length; i += 1) {
                 if (key === msg.dog_ids[i]) {
+                  isValid = false;
                   break;
                 }
-                if (i === msg.dog_ids.length - 1) {
-                  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                  if (store.controllers[key].ip === connector.ip) delete store.controllers[key];
-                }
+              }
+              if (isValid) {
+                // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                if (store.controllers[key].ip === connector.ip) delete store.controllers[key];
               }
             }
           })
