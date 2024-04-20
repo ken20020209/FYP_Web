@@ -7,7 +7,7 @@ interface Props {
   robot: Api.Robot;
   getdata: () => void;
 }
-const cameraImage = ref<string>('/favicon.svg');
+const cameraImage = ref<string>('/app/favicon.svg');
 const props = defineProps<Props>();
 
 const active = ref<boolean>(false);

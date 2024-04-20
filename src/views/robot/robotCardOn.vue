@@ -24,7 +24,7 @@ const streamEffects = ref<StreamEffect[]>([
 ]);
 const curStreamEffect = ref<string>('effect1');
 
-const cameraImage = ref<any>('/favicon.svg');
+const cameraImage = ref<any>('/app/favicon.svg');
 const cameraSwitch = ref<boolean>(false);
 const cameraLife = ref<number>(life);
 const cameraSwitchLoading = ref<boolean>(false);
