@@ -23,5 +23,6 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   record: () => import("@/views/record/index.vue"),
   "robot-map": () => import("@/views/robot-map/index.vue"),
   robot: () => import("@/views/robot/index.vue"),
+  server: () => import("@/views/server/index.vue"),
   user: () => import("@/views/user/index.vue"),
 };

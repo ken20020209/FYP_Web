@@ -93,6 +93,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'server',
+    path: '/server',
+    component: 'layout.base$view.server',
+    meta: {
+      title: 'server',
+      i18nKey: 'route.server',
+      roles: ['admin'],
+      icon: 'ic:round-computer'
+    }
+  },
+  {
     name: 'user',
     path: '/user',
     component: 'layout.base$view.user',

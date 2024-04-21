@@ -76,7 +76,7 @@ onMounted(() => {
 
 <template>
   <NDrawer v-model:show="active" :width="502" placement="right" multiple>
-    <NDrawerContent title="Add Map">
+    <NDrawerContent title="Add Record">
       <NForm label-placement="top" :rules="formRules">
         <NFormItem label="Name">
           <NInput v-model:value="new_name" placeholder="Please input name" />

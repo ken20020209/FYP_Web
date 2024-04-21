@@ -62,7 +62,7 @@ onUnmounted(() => {});
 
 <template>
   <NCard>
-    <template #header>Map List</template>
+    <template #header>Record List</template>
     <template #header-extra>
       <NFlex justify="end">
         <NSelect

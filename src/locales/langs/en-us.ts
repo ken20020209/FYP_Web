@@ -169,7 +169,8 @@ const local: App.I18n.Schema = {
     robot: 'Robot',
     user: 'User',
     'control-panel': 'Control Panel',
-    'robot-map': 'Map'
+    'robot-map': 'Map',
+    server: 'Server'
   },
   page: {
     login: {

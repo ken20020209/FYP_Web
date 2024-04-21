@@ -29,6 +29,7 @@ declare module "@elegant-router/types" {
     "record": "/record";
     "robot": "/robot";
     "robot-map": "/robot-map";
+    "server": "/server";
     "user": "/user";
   };
 
@@ -73,6 +74,7 @@ declare module "@elegant-router/types" {
     | "record"
     | "robot"
     | "robot-map"
+    | "server"
     | "user"
   >;
 
@@ -99,6 +101,7 @@ declare module "@elegant-router/types" {
     | "record"
     | "robot-map"
     | "robot"
+    | "server"
     | "user"
   >;
 

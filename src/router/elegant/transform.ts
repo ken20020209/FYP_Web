@@ -155,6 +155,7 @@ const routeMap: RouteMap = {
   "record": "/record",
   "robot": "/robot",
   "robot-map": "/robot-map",
+  "server": "/server",
   "user": "/user"
 };
 
