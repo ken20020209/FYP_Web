@@ -1,7 +1,7 @@
 import { request } from '../request';
 
 export function fetchRecords(params?: any) {
-  return request<Api.Record[]>({ url: '/api/record', method: 'GET', params });
+  return request<{ total: number; record: Api.Record[] }>({ url: '/api/record', method: 'GET', params });
 }
 
 export function fetchUpdateRecord(id: number, name: string) {

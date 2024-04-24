@@ -13,6 +13,9 @@ const active = ref(false);
 const uploadData = ref(new FormData());
 const new_name = ref('');
 const robot_id = ref<string>('');
+const limit = ref(8);
+const offset = ref(1);
+const totalPage = ref(10);
 
 const model = {
   active,
@@ -36,12 +39,26 @@ const getRobotOptions = async () => {
 
 const getReocrds = async () => {
   const params = {
-    robot_id: Number(robot_id.value)
+    limit: limit.value,
+    offset: (offset.value - 1) * limit.value
+  };
+  const paramsID = {
+    limit: limit.value,
+    offset: (offset.value - 1) * limit.value,
+    robot_id: robot_id.value
   };
   let res;
-  if (robot_id.value !== '') res = await fetchRecords(params);
-  else res = await fetchRecords();
-  if (res.data) records.value = res.data;
+  if (robot_id.value !== '') res = await fetchRecords(paramsID);
+  else res = await fetchRecords(params);
+
+  if (res.data) {
+    records.value = res.data.record;
+    totalPage.value = Math.round(res.data.total / limit.value);
+  }
+};
+const pageUpdate = async (page: number) => {
+  offset.value = page;
+  getReocrds();
 };
 const handleAdd = () => {
   active.value = true;
@@ -82,6 +99,9 @@ onUnmounted(() => {});
       </template>
     </NGrid>
     <RecordDraw :model="model" :get-data="getReocrds" />
+    <template #footer>
+      <NPagination v-model:page="offset" :page-count="totalPage" :on-update-page="pageUpdate" />
+    </template>
   </NCard>
 </template>
 
